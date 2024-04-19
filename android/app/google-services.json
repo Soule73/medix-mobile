@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "625199994649",
+    "project_id": "medix-sds",
+    "storage_bucket": "medix-sds.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625199994649:android:e505097af7905109ad5788",
+        "android_client_info": {
+          "package_name": "com.sdssoum.medix"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq1fd67EGCFZJChjhM1qkOYuXaF1yb9ko"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

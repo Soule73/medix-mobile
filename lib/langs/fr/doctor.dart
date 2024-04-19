@@ -1,0 +1,35 @@
+final Map<String, String> doctorFR = {
+  "select-appointment-time": "Sélectionner l'heure du rendez-vous",
+  "not-available": "Non disponible",
+  "book-appointment": "Réserver maintenant",
+  "consultation-price": "Frais de consultation",
+  "appointment-reason": "Motif du rendez-vous",
+  "next": "Suivant",
+  "doctor-experience": "Expérience",
+  "doctor-patients": "patients",
+  "doctor-about": "À propos de moi",
+  "view-more": "Voir plus",
+  "view-timetable": "Voir l'emploi du temps",
+  "reviews": "Avis",
+  "doctor-profil": "Profil du médecin",
+  "timetable": "Emploi du temps",
+  "about-doctor": "À propos de moi",
+  "search-doctor": "Rechercher un médecin",
+  "filter-speciality": "Filtrer par spécialité",
+  "apply": "Appliquer les filtres",
+  "doctors-specialities": "Spécialités des médecins",
+  "see-all": "Voir tout",
+  "all-specialities": "Toutes les spécialités",
+  "no-patients-reviews": "Aucun avis de patients pour le moment",
+  "top-doctors": "Top médecins",
+
+  //
+  "review-update": "Avis mis à jour, merci .",
+  "thank-for-your-feedback": "Merci d'avoir partager votre avis",
+  "review-delete": "Avis supprimé",
+  "submit": "soumettre",
+  "your-review": "Votre avis",
+
+  "update-this-review": "Modifier cette avis",
+  "delete-this-review": "Supprimer cette avis"
+};
