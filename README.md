@@ -1,3 +1,3 @@
 # medix
 
-Une application pour planifier un rendez-vous médical avec un médecin.
+Une application pour prendre rendez-vous médical avec un médecin.
