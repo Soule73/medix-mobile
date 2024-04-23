@@ -3,9 +3,10 @@ import 'package:get/get.dart';
 import 'package:medix/constants/couleurs.dart';
 
 InputDecoration formInputFieldDecoration(
-    {String? hintText, String? helperText, Widget? label}) {
+    {String? hintText, String? helperText, Widget? label, Widget? suffixIcon}) {
   return InputDecoration(
       filled: true,
+      suffixIcon: suffixIcon,
       fillColor:
           Get.theme.primaryColor.withOpacity(0.1), // Couleur de fond estompée
       enabledBorder: OutlineInputBorder(

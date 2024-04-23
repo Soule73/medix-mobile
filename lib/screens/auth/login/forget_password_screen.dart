@@ -57,9 +57,10 @@ class ForgetPasswordScreen extends StatelessWidget {
     int nsn = phoneNumber.nsn.length;
     String nsnString = phoneNumber.nsn.toString();
 
-    if (nsn == 8 && nsnString.startsWith("2") ||
-        nsnString.startsWith("3") ||
-        nsnString.startsWith("4")) {
+    if (nsn == 8 &&
+        (nsnString.startsWith("2") ||
+            nsnString.startsWith("3") ||
+            nsnString.startsWith("4"))) {
       resetPasswordController.phoneNumberIsvalid.value = true;
       FocusScope.of(context).unfocus();
     } else {

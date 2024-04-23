@@ -41,7 +41,9 @@ class FadedTextField extends StatelessWidget {
           validator: validator,
           controller: controller,
           decoration: formInputFieldDecoration(
-              hintText: hintText, label: Text('$label')),
+              suffixIcon: suffixIcon,
+              hintText: hintText,
+              label: Text('$label')),
         ));
   }
 }

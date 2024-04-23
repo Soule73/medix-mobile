@@ -224,7 +224,6 @@ class NotificationItem extends StatelessWidget {
   void _deleteNotification(BuildContext context) {
     Get.find<NotificationController>()
         .notificationDelete(notificationId: '${notification.id}', index: index);
-    Get.back();
   }
 
   String formatNotificationTitle(String title) {

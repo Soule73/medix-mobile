@@ -57,7 +57,8 @@ class TopDoctorBySpecility extends StatelessWidget {
         focusedBorder: _outlineInputBorder(primary),
         hintText: "search-doctor".tr,
         prefixIcon: Obx(() =>
-            Get.find<DoctorController>().isLoadingDoctors.value
+            Get.find<DoctorController>().isLoadingDoctors.value &&
+                    Get.find<DoctorController>().search.value != ""
                 ? const SizedBox(
                     width: 20,
                     height: 20,

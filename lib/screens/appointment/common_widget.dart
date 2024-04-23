@@ -58,6 +58,7 @@ Padding buildAppointmentReason({required TextEditingController controller}) {
       child: FadedTextereaField(
           minLines: 5,
           hintText: "appointment-reason".tr,
+          label: "appointment-reason".tr,
           controller: controller,
           keyboardType: TextInputType.multiline));
 }

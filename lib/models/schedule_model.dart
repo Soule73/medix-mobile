@@ -5,8 +5,8 @@ class Schedule {
   int? workPlaceId;
   String? workPlaceName;
   String? workPlaceAddress;
-  String? workPlaceLatitude;
-  String? workPlaceLongitude;
+  double? workPlaceLatitude;
+  double? workPlaceLongitude;
 
   Schedule(
       {this.id,

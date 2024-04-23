@@ -34,8 +34,9 @@ class TabBarController extends GetxController
       _appointmentController.fetchUserAppointment(status: status[index]);
     }
     tabController?.addListener(() {
-      if (index != null) {
-        _appointmentController.fetchUserAppointment(status: status[index]);
+      int? newIndex = tabController?.index;
+      if (newIndex != null) {
+        _appointmentController.fetchUserAppointment(status: status[newIndex]);
       }
     });
   }
