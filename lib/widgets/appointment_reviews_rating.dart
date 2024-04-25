@@ -1,19 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medix/models/appointment_model.dart';
-import 'package:medix/screens/appointment/review_controller.dart';
+// import 'package:medix/screens/appointment/review_controller.dart';
 import 'package:medix/screens/doctor/rate_doctor_screen.dart';
 import 'package:medix/screens/profile/review_actions.dart';
+import 'package:medix/services/api_doctor.dart';
+import 'package:medix/utils/alert_dialog.dart';
 import 'package:medix/utils/utils.dart';
 import 'package:medix/widgets/buil_rate.dart';
 import 'package:medix/widgets/doctor/bottom_sheet.dart';
+
+class ReviewDeleteController extends GetxController {
+  RxBool noReview = true.obs;
+  Rx<Appointment?> appointment = Rx<Appointment?>(null);
+
+  Future<void> deleteReview(int id) async {
+    final ReviewRating? rating = appointment.value?.reviewRating;
+    ApiDoctor apiDoctor = ApiDoctor();
+    final bool success = await apiDoctor.deleteRate(id: id);
+    if (success) {
+      successDialog(title: "success".tr, body: "review-delete".tr);
+    } else {
+      appointment.value?.reviewRating = rating;
+      noReview.value = false;
+      defaultErrorDialog();
+    }
+    update();
+  }
+}
 
 class AppointmentReview extends StatelessWidget {
   AppointmentReview({
     super.key,
     required this.appointment,
   });
-  final ReviewIsEmpty reviewIsEmpty = Get.find<ReviewIsEmpty>();
+  final ReviewDeleteController reviewDeleteController =
+      Get.put(ReviewDeleteController());
   final Appointment appointment;
 
   @override
@@ -56,7 +78,7 @@ class AppointmentReview extends StatelessWidget {
   _onTapDelete() {
     int? reviewId = appointment.reviewRating?.id;
     if (reviewId != null) {
-      reviewIsEmpty.deleteReview(reviewId);
+      reviewDeleteController.deleteReview(reviewId);
     }
   }
 }

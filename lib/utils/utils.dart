@@ -50,6 +50,20 @@ String formatDateTime(String utcDate) {
   return formattedDate;
 }
 
+String formatDate(String utcDate) {
+  initializeDateFormatting(Get.find<LangController>().lang.value, null);
+  DateTime dateTime = DateTime.parse(utcDate);
+
+  String formattedDate = DateFormat(
+          Get.find<LangController>().lang.value == "en"
+              ? 'yyyy MMMM dd'
+              : 'dd MMMM yyyy',
+          Get.find<LangController>().lang.value)
+      .format(dateTime.toLocal());
+
+  return formattedDate;
+}
+
 /// Calcule le temps écoulé depuis une date donnée jusqu'à maintenant.
 String timeFromNow(String dateString) {
   DateTime pastDate =

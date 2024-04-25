@@ -5,7 +5,6 @@ import 'package:medix/controllers/doctor_controller.dart';
 import 'package:medix/models/appointment_model.dart';
 import 'package:medix/models/schedule_model.dart';
 import 'package:medix/screens/appointment/appointment_detail_screen.dart';
-import 'package:medix/screens/appointment/review_controller.dart';
 import 'package:medix/services/api_appointment.dart';
 import 'package:medix/utils/alert_dialog.dart';
 
@@ -68,8 +67,10 @@ class ReScheduleAppointmentController extends GetxController
             title: "success".tr,
             body: "appointment-reschedule-success".tr,
             onClose: () {
-              Get.find<ReviewIsEmpty>().appointment.value = appointment;
-              Get.off(() => AppointmentDetailScreen(back: false));
+              Get.off(() => AppointmentDetailScreen(
+                    back: false,
+                    appointment: appointment,
+                  ));
             });
       } else {
         defaultErrorDialog();

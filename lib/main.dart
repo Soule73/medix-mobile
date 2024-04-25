@@ -17,7 +17,6 @@ import 'package:medix/constants/couleurs.dart';
 import 'package:medix/controllers/auth/auth.dart';
 import 'package:medix/controllers/themes/theme_controller.dart';
 import 'package:medix/firebase_options.dart';
-import 'package:medix/screens/appointment/review_controller.dart';
 import 'package:medix/screens/auth/login/login_screen.dart';
 import 'package:medix/screens/welcome_screen.dart';
 
@@ -40,7 +39,6 @@ void main() async {
   Get.put(AppointmentController(), permanent: true);
   Get.put(OneSignalNotification(), permanent: true);
   Get.put(ThemeController(), permanent: true);
-  Get.put(ReviewIsEmpty(), permanent: true);
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Get.isDarkMode ? darkBg : primary,

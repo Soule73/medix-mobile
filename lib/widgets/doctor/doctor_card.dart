@@ -50,15 +50,34 @@ class DoctorCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
             child: Hero(
                 tag: doctor.id!,
-                child: Image.network(networkImage('${doctor.avatar}'),
-                    loadingBuilder: _loadingBuilder))));
+                child: Image.network(
+                    key: UniqueKey(),
+                    networkImage('${doctor.avatar}'),
+                    loadingBuilder: _loadingBuilder,
+                    errorBuilder: _errorBuilder))));
+  }
+
+  Widget _errorBuilder(
+      BuildContext context, Object exception, StackTrace? stackTrace) {
+    return const Center(
+        child: Icon(
+      Icons.image,
+      size: 65,
+    ));
   }
 
   Widget _loadingBuilder(context, child, loadingProgress) {
     if (loadingProgress == null) {
       return child;
     } else {
-      return Center(child: CircularProgressIndicator(color: primary));
+      return Center(
+          child: SizedBox(
+              width: 40,
+              height: 40,
+              child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircularProgressIndicator(
+                      color: primary, strokeWidth: 2.0))));
     }
   }
 

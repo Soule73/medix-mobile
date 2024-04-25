@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:medix/models/doctor_model.dart';
 import 'package:medix/models/link_model.dart';
+import 'package:medix/models/qualification_model.dart';
 import 'package:medix/models/review_ratings.dart';
 import 'package:medix/models/schedule_model.dart';
 import 'package:medix/services/api_doctor.dart';
@@ -53,6 +54,9 @@ class DoctorController extends GetxController {
 
   /// Liste observable des évaluations et commentaires.
   Rx<List<Review>> reviewRatings = Rx<List<Review>>([]);
+
+  /// Liste observable des qualifications du médecin.
+  Rx<List<Qualification>> qualificationList = Rx<List<Qualification>>([]);
 
   /// Horaire hebdomadaire observable du médecin sélectionné.
   Rx<WeeklySchedule?> weeklySchedule = Rx<WeeklySchedule?>(null);

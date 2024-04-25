@@ -6,7 +6,6 @@ import 'package:medix/controllers/appointment_controller.dart';
 import 'package:medix/layouts/default_scaffold.dart';
 import 'package:medix/models/appointment_model.dart';
 import 'package:medix/screens/appointment/appointment_detail_screen.dart';
-import 'package:medix/screens/appointment/review_controller.dart';
 import 'package:medix/screens/welcome_screen.dart';
 import 'package:medix/utils/utils.dart';
 import 'package:medix/widgets/doctor/back_btn.dart';
@@ -169,8 +168,10 @@ class AppointmentItem extends StatelessWidget {
   }
 
   void _getDetailScreen() {
-    Get.find<ReviewIsEmpty>().appointment.value = appointment;
-    Get.to(() => AppointmentDetailScreen(index: index));
+    Get.to(() => AppointmentDetailScreen(
+          index: index,
+          appointment: appointment,
+        ));
   }
 }
 

@@ -31,5 +31,6 @@ final Map<String, String> doctorFR = {
   "your-review": "Votre avis",
 
   "update-this-review": "Modifier cette avis",
-  "delete-this-review": "Supprimer cette avis"
+  "delete-this-review": "Supprimer cette avis",
+  "qualifications": "Qualifications",
 };

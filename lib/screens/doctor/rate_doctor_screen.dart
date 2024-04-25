@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:medix/constants/couleurs.dart';
 import 'package:medix/layouts/default_scaffold.dart';
 import 'package:medix/models/appointment_model.dart';
-import 'package:medix/screens/appointment/review_controller.dart';
 import 'package:medix/services/api_doctor.dart';
 import 'package:medix/utils/alert_dialog.dart';
 import 'package:medix/utils/utils.dart';
@@ -21,17 +20,25 @@ class RatingController extends GetxController {
 
   Future<ReviewRating?> rateDoctor(Map<String, dynamic> data) async {
     isLoad.value = true;
-    final ReviewRating? reviewRating =
-        await apiDoctor.addOrUpdateDoctorRate(credential: data, path: path);
-    if (reviewRating != null) {
-      successDialog(
-          title: "success".tr,
-          body:
-              path != null ? "review-update".tr : "thank-for-your-feedback".tr);
-      isLoad.value = false;
-      return reviewRating;
-    } else {
-      defaultErrorDialog();
+    try {
+      final ReviewRating? reviewRating =
+          await apiDoctor.addOrUpdateDoctorRate(credential: data, path: path);
+
+      if (reviewRating != null) {
+        Future.delayed(Duration.zero, () async {
+          successDialog(
+              title: "success".tr,
+              body: path != null
+                  ? "review-update".tr
+                  : "thank-for-your-feedback".tr);
+          isLoad.value = false;
+          return reviewRating;
+        });
+      } else {
+        defaultErrorDialog();
+      }
+    } catch (e) {
+      printInfo(info: 'error getx controller $e');
     }
     isLoad.value = false;
     return null;
@@ -39,25 +46,23 @@ class RatingController extends GetxController {
 }
 
 class RateDoctorScreen extends StatelessWidget {
-  RateDoctorScreen({super.key});
+  RateDoctorScreen({super.key, this.appointment});
 
   final RatingController ratingController = Get.put(RatingController());
-  final ReviewIsEmpty reviewIsEmpty = Get.find<ReviewIsEmpty>();
-
+  final Appointment? appointment;
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      Appointment? appointment = reviewIsEmpty.appointment.value;
       if (appointment != null) {
-        if (appointment.reviewRating != null) {
-          int? star = appointment.reviewRating?.star;
+        if (appointment?.reviewRating != null) {
+          int? star = appointment?.reviewRating?.star;
           ratingController.star.value = star ?? 0;
           ratingController.review.text =
-              appointment.reviewRating?.comment != null
-                  ? '${appointment.reviewRating?.comment}'
+              appointment?.reviewRating?.comment != null
+                  ? '${appointment?.reviewRating?.comment}'
                   : '';
           ratingController.path =
-              "/review-rating/update/${appointment.reviewRating?.id}";
+              "/review-rating/update/${appointment?.reviewRating?.id}";
         }
         return ScaffoldDefault(
             leading: const BackBtn(),
@@ -91,21 +96,23 @@ class RateDoctorScreen extends StatelessWidget {
   }
 
   void sumbitData() async {
-    final Appointment? appointment = reviewIsEmpty.appointment.value;
-
-    final Map<String, dynamic> data = {
-      'appointment_id': '${appointment?.id}',
-      'patient_id': '${appointment?.patientId}',
-      'doctor_id': '${appointment?.doctorId}',
-      'star': '${ratingController.star.value}',
-      'comment': ratingController.review.text
-    };
-    reviewIsEmpty.appointment.value?.reviewRating =
-        await ratingController.rateDoctor(data);
-    if (reviewIsEmpty.appointment.value?.reviewRating != null) {
-      reviewIsEmpty.noReview.value = false;
-      ratingController.path =
-          "/review-rating/update/${reviewIsEmpty.appointment.value?.reviewRating?.id}";
+    try {
+      final Map<String, dynamic> data = {
+        'appointment_id': '${appointment?.id}',
+        'patient_id': '${appointment?.patientId}',
+        'doctor_id': '${appointment?.doctorId}',
+        'star': '${ratingController.star.value}',
+        'comment': ratingController.review.text
+      };
+      Future.delayed(Duration.zero, () async {
+        appointment?.reviewRating = await ratingController.rateDoctor(data);
+        if (appointment?.reviewRating != null) {
+          ratingController.path =
+              "/review-rating/update/${appointment?.reviewRating?.id}";
+        }
+      });
+    } catch (e) {
+      printError(info: 'error update : $e');
     }
   }
 
@@ -121,6 +128,7 @@ class RateDoctorScreen extends StatelessWidget {
                       fontSize: 18, fontWeight: FontWeight.w600))),
           FadedTextereaField(
               minLines: 5,
+              label: "write-your-review".tr,
               hintText: "write-your-review".tr,
               controller: ratingController.review,
               keyboardType: TextInputType.multiline)
@@ -145,8 +153,6 @@ class RateDoctorScreen extends StatelessWidget {
   }
 
   Center _doctorInfo() {
-    final Appointment? appointment = reviewIsEmpty.appointment.value;
-
     return Center(
         child: Column(children: [
       SizedBox(

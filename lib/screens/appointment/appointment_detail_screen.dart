@@ -7,7 +7,6 @@ import 'package:medix/layouts/default_scaffold.dart';
 import 'package:medix/models/appointment_model.dart';
 import 'package:medix/screens/appointment/appointment_screen.dart';
 import 'package:medix/screens/appointment/re_schedule_appointment_screen.dart';
-import 'package:medix/screens/appointment/review_controller.dart';
 import 'package:medix/screens/doctor/rate_doctor_screen.dart';
 import 'package:medix/utils/alert_dialog.dart';
 import 'package:medix/utils/utils.dart';
@@ -17,112 +16,151 @@ import 'package:medix/widgets/doctor/back_btn.dart';
 import 'package:medix/widgets/doctor/doc_info.dart';
 
 class AppointmentDetailScreen extends StatelessWidget {
-  AppointmentDetailScreen({super.key, this.back = true, this.index});
+  AppointmentDetailScreen(
+      {super.key, this.back = true, this.index, required this.appointment});
 
   final int? index;
 
   final AppointmentController appointmentController =
       Get.find<AppointmentController>();
-  final ReviewIsEmpty reviewIsEmpty = Get.find<ReviewIsEmpty>();
   final bool back;
+  final Appointment appointment;
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (reviewIsEmpty.appointment.value != null) {
-        if (reviewIsEmpty.appointment.value?.reviewRating != null) {
-          reviewIsEmpty.noReview.value = false;
-        }
-        final Appointment? appointment = reviewIsEmpty.appointment.value;
-
-        final Map<String, String> status = {
-          "pending": "appointment-pending".tr,
-          "finished": "appointment-finished".tr,
-          "accepted": "appointment-accepted".tr,
-          "denied": "appointment-denied".tr
-        };
-        final Map<String, Color> statusColor = {
-          "pending": warning,
-          "finished": primary,
-          "accepted": success,
-          "denied": error
-        };
-        final List<Map<String, dynamic>> titleValue = [
-          {
-            'title': 'Id : ',
-            'value': '#${appointment?.id.toString().padLeft(8, '0')}',
-            'color': null
-          },
-          {
-            'title': '${'appointment-place'.tr} : ',
-            'value': '${appointment?.workPlaceName}',
-            'color': null
-          },
-          {
-            'title': '${'appointment-address'.tr} : ',
-            'value': '${appointment?.workPlaceAddress}',
-            'color': null
-          },
-          {
-            'title': '${'appointment-date'.tr} : ',
-            'value': formatDateTime('${appointment?.dateAppointment}'),
-            'color': null
-          },
-          {
-            'title': '${'appointment-price'.tr} : ',
-            'value': '${appointment?.amount} MRU',
-            'color': null
-          },
-          {
-            'title': '${'appointment-payment'.tr} : ',
-            'value': appointment!.payed!
-                ? "appointment-payment-true".tr
-                : "appointment-payment-false".tr,
-            'color': null
-          },
-          {
-            'title': '${'appointment'.tr} : ',
-            'value': status['${appointment.status}'],
-            'color': statusColor['${appointment.status}']
-          },
-        ];
-        return ScaffoldDefault(
-          title: "appointment-details".tr,
-          leading: BackBtn(
-              onPressed: back
-                  ? null
-                  : () => Get.to(() => AppointmentScreen(back: false))),
-          actions: const [],
-          body: SingleChildScrollView(
-              child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(children: [
-                    DoctorInfo(
-                        tags: appointment.doctorId,
-                        avatar: networkImage('${appointment.doctorAvatar}'),
-                        fullName:
-                            '${appointment.doctorProfessionalTitle} ${(appointment.doctorFullname)}',
-                        phone: '${'phone'.tr} : ${appointment.doctorPhone}',
-                        email: '${'email'.tr} : ${appointment.doctorEmail}',
-                        title: 'contact'.tr),
-                    const SizedBox(height: 10),
-                    ...titleValue.map((titleValue) => TitleWithValue(
-                          title: titleValue['title'],
-                          value: titleValue['value'],
-                          color: titleValue['color'],
-                        )),
-                    _motif(),
-                    _acceptedMsg(),
-                    _refusedMesg(),
-                    _rateDoctorBtn()
-                  ]))),
-          bottomNavigationBar: '${appointment.status}' == "pending"
-              ? _appointmentAction()
-              : null,
-        );
-      } else {
-        return const SizedBox.shrink();
-      }
+      final Map<String, String> status = {
+        "pending": "appointment-pending".tr,
+        "finished": "appointment-finished".tr,
+        "accepted": "appointment-accepted".tr,
+        "denied": "appointment-denied".tr
+      };
+      final Map<String, Color> statusColor = {
+        "pending": warning,
+        "finished": primary,
+        "accepted": success,
+        "denied": error
+      };
+      final List<Map<String, dynamic>> titleValue = [
+        {
+          'title': 'Id : ',
+          'value': '#${appointment.id.toString().padLeft(8, '0')}',
+          'color': null
+        },
+        {
+          'title': '${'appointment-place'.tr} : ',
+          'value': '${appointment.workPlaceName}',
+          'color': null
+        },
+        {
+          'title': '${'appointment-address'.tr} : ',
+          'value': '${appointment.workPlaceAddress}',
+          'color': null
+        },
+        {
+          'title': '${'appointment-date'.tr} : ',
+          'value': formatDateTime('${appointment.dateAppointment}'),
+          'color': null
+        },
+        {
+          'title': '${'appointment-price'.tr} : ',
+          'value': '${appointment.amount} MRU',
+          'color': null
+        },
+        {
+          'title': '${'appointment-payment'.tr} : ',
+          'value': appointment.payed!
+              ? "appointment-payment-true".tr
+              : "appointment-payment-false".tr,
+          'color': null
+        },
+        {
+          'title': '${'appointment'.tr} : ',
+          'value': status['${appointment.status}'],
+          'color': statusColor['${appointment.status}']
+        },
+      ];
+      return ScaffoldDefault(
+        title: "appointment-details".tr,
+        leading: BackBtn(
+            onPressed: back
+                ? null
+                : () => Get.to(() => AppointmentScreen(back: false))),
+        actions: const [],
+        body: SingleChildScrollView(
+            child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(children: [
+                  DoctorInfo(
+                      tags: appointment.doctorId,
+                      avatar: networkImage('${appointment.doctorAvatar}'),
+                      fullName:
+                          '${appointment.doctorProfessionalTitle} ${(appointment.doctorFullname)}',
+                      phone: '${'phone'.tr} : ${appointment.doctorPhone}',
+                      email: '${'email'.tr} : ${appointment.doctorEmail}',
+                      title: 'contact'.tr),
+                  const SizedBox(height: 10),
+                  ...titleValue.map((titleValue) => TitleWithValue(
+                        title: titleValue['title'],
+                        value: titleValue['value'],
+                        color: titleValue['color'],
+                      )),
+                  _motif(),
+                  _acceptedMsg(),
+                  _refusedMesg(),
+                  _buildReviewedButton(),
+                  _buildReviewButton()
+                  // _rateDoctorBtn()
+                ]))),
+        bottomNavigationBar:
+            '${appointment.status}' == "pending" ? _appointmentAction() : null,
+      );
     });
+  }
+
+  Widget _rateDoctorBtn() {
+    // Vérifiez l'état de la revue et l'état de l'appointment
+    if (appointment.reviewRating != null) {
+      return _buildReviewedButton();
+    } else if (appointment.status == 'finished') {
+      return _buildReviewButton();
+    }
+    return const SizedBox.shrink();
+  }
+
+  Widget _buildReviewedButton() {
+    // Construisez le bouton pour les rendez-vous évalués
+    return Column(children: [
+      Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Text("your-review".tr,
+              style:
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.w600))),
+      GestureDetector(
+          onTap: () {
+            // Utilisez un callback pour gérer la navigation
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Get.to(() => RateDoctorScreen());
+            });
+          },
+          child: AppointmentReview(appointment: appointment))
+    ]);
+  }
+
+  Widget _buildReviewButton() {
+    // Construisez le bouton pour écrire une nouvelle revue
+    return Padding(
+        padding: const EdgeInsets.only(top: 28.0, left: 50, right: 50),
+        child: OutlinedBtn(
+            height: 40,
+            onPressed: () {
+              // Utilisez un callback pour gérer la navigation
+              // WidgetsBinding.instance.addPostFrameCallback((_) {
+              //   Get.to(() => RateDoctorScreen());
+              // });
+            },
+            title: "write-your-review".tr));
   }
 
   Widget _appointmentAction() {
@@ -184,7 +222,7 @@ class AppointmentDetailScreen extends StatelessWidget {
   }
 
   void _delete() async {
-    int? appointmentId = reviewIsEmpty.appointment.value?.id;
+    int? appointmentId = appointment.id;
     int? deletIndex = index;
     if (deletIndex != null && appointmentId != null) {
       await appointmentController.canceledAppointment(
@@ -193,46 +231,13 @@ class AppointmentDetailScreen extends StatelessWidget {
   }
 
   void _handleTapReSchedule() async {
-    final Appointment? appointment = reviewIsEmpty.appointment.value;
-    if (appointment != null) {
-      await Get.find<DoctorController>()
-          .fetchDoctorDetails(appointment.doctorId.toString());
-      Get.to(() => ReScheduleAppointmentScreen(appointment: appointment));
-    }
-  }
-
-  Widget _rateDoctorBtn() {
-    return Obx(() {
-      if (!reviewIsEmpty.noReview.value &&
-          reviewIsEmpty.appointment.value?.reviewRating != null) {
-        return Column(children: [
-          Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Text("your-review".tr,
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w600))),
-          GestureDetector(
-              onTap: () => Get.to(() => RateDoctorScreen()),
-              child: AppointmentReview(
-                  appointment: reviewIsEmpty.appointment.value!))
-        ]);
-      } else if (reviewIsEmpty.appointment.value?.status == 'finished') {
-        return Padding(
-            padding: const EdgeInsets.only(top: 28.0, left: 50, right: 50),
-            child: OutlinedBtn(
-                height: 40,
-                onPressed: () {
-                  Get.to(() => RateDoctorScreen());
-                },
-                title: "write-your-review".tr));
-      }
-      return const SizedBox.shrink();
-    });
+    await Get.find<DoctorController>()
+        .fetchDoctorDetails(appointment.doctorId.toString());
+    Get.to(() => ReScheduleAppointmentScreen(appointment: appointment));
   }
 
   Widget _motif() {
-    String? motif = reviewIsEmpty.appointment.value?.motif;
+    String? motif = appointment.motif;
 
     return motif != null
         ? AppointmentMessage(title: "appointment-motif".tr, message: motif)
@@ -240,7 +245,7 @@ class AppointmentDetailScreen extends StatelessWidget {
   }
 
   Widget _acceptedMsg() {
-    String? acceptedMessage = reviewIsEmpty.appointment.value?.acceptedMessage;
+    String? acceptedMessage = appointment.acceptedMessage;
 
     return acceptedMessage != null
         ? AppointmentMessage(
@@ -249,8 +254,7 @@ class AppointmentDetailScreen extends StatelessWidget {
   }
 
   Widget _refusedMesg() {
-    String? reasonForRefusal =
-        reviewIsEmpty.appointment.value?.reasonForRefusal;
+    String? reasonForRefusal = appointment.reasonForRefusal;
 
     return reasonForRefusal != null
         ? AppointmentMessage(

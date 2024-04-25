@@ -30,5 +30,6 @@ final Map<String, String> doctorEN = {
   "submit": "Submit",
   "your-review": "Your review",
   "update-this-review": "Update this review",
-  "delete-this-review": "Delete this review"
+  "delete-this-review": "Delete this review",
+  "qualifications": "Qualifications",
 };

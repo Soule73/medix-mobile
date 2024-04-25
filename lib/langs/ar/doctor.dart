@@ -30,5 +30,6 @@ final Map<String, String> doctorAR = {
   "submit": "إرسال",
   "your-review": "مراجعة",
   "update-this-review": "تحديث هذه المراجعة",
-  "delete-this-review": "حذف هذه المراجعة"
+  "delete-this-review": "حذف هذه المراجعة",
+  "qualifications": "مؤهلات",
 };

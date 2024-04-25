@@ -3,7 +3,6 @@ import 'package:medix/models/appointment_model.dart';
 import 'package:medix/models/link_model.dart';
 import 'package:medix/models/notification_model.dart';
 import 'package:medix/screens/appointment/appointment_detail_screen.dart';
-import 'package:medix/screens/appointment/review_controller.dart';
 import 'package:medix/services/api_notification.dart';
 import 'package:medix/utils/alert_dialog.dart';
 
@@ -64,9 +63,9 @@ class NotificationController extends GetxController {
     Appointment? appointment =
         await apiNotification.findAppointment(appointmentId: appointmentId);
     if (appointment != null) {
-      Get.find<ReviewIsEmpty>().appointment.value = appointment;
-
-      Get.to(() => AppointmentDetailScreen());
+      Get.to(() => AppointmentDetailScreen(
+            appointment: appointment,
+          ));
       notificationMarkAsRead(notificationId: notificationId, index: index);
     } else {
       errorDialog(

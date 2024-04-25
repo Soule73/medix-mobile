@@ -5,6 +5,7 @@ import 'package:medix/controllers/doctor_controller.dart';
 import 'package:medix/models/appointment_model.dart';
 import 'package:medix/models/doctor_model.dart';
 import 'package:medix/models/link_model.dart';
+import 'package:medix/models/qualification_model.dart';
 import 'package:medix/models/review_ratings.dart';
 import 'package:medix/models/schedule_model.dart';
 import 'package:medix/services/perform_request.dart';
@@ -83,15 +84,20 @@ class ApiDoctor {
         final Map<String, dynamic> workingHoursList =
             data['data']['working_hours'];
         final List<dynamic> reviewRatingsList = data['data']['review_ratings'];
+        final List<dynamic> qualifications = data['data']['qualifications'];
 
         final List<Review> reviewRatings =
             reviewRatingsList.map((e) => Review.fromJson(e)).toList();
+        final List<Qualification> qualificationsList =
+            qualifications.map((e) => Qualification.fromJson(e)).toList();
 
         WeeklySchedule weeklySchedule =
             WeeklySchedule.fromJson(workingHoursList);
 
         Get.find<DoctorController>().weeklySchedule.value = weeklySchedule;
         Get.find<DoctorController>().reviewRatings.value = reviewRatings;
+        Get.find<DoctorController>().qualificationList.value =
+            qualificationsList;
       },
     );
   }
@@ -99,14 +105,9 @@ class ApiDoctor {
   /// Ajoute ou met à jour une évaluation pour un médecin.
   /// [credential] Les données nécessaires pour l'évaluation.
   /// [path] Le chemin de l'API pour l'ajout ou la mise à jour.
-  /// [alert] Indique si un message d'alerte doit être affiché en cas d'erreur.
-  /// [successMsg] Le message de succès personnalisé.
   /// Retourne un objet [ReviewRating] ou null en cas d'échec.
   Future<ReviewRating?> addOrUpdateDoctorRate(
-      {required Map credential,
-      String? path,
-      bool alert = true,
-      String? successMsg}) async {
+      {required Map credential, String? path}) async {
     final body = json.encode(credential);
     final headers = buildHeader(token: await getToken());
 

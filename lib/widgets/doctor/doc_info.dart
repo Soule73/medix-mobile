@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medix/constants/couleurs.dart';
 import 'package:medix/utils/utils.dart';
 
 class DoctorInfo extends StatelessWidget {
@@ -35,9 +36,42 @@ class DoctorInfo extends StatelessWidget {
             child: isHero
                 ? Hero(
                     tag: tags!,
-                    child:
-                        Image.network(networkImage(avatar), key: UniqueKey()))
-                : Image.network(networkImage(avatar), key: UniqueKey())));
+                    child: Image.network(
+                      networkImage(avatar),
+                      key: UniqueKey(),
+                      errorBuilder: _errorBuilder,
+                      loadingBuilder: _loadingBuilder,
+                    ))
+                : Image.network(
+                    networkImage(avatar),
+                    key: UniqueKey(),
+                    errorBuilder: _errorBuilder,
+                    loadingBuilder: _loadingBuilder,
+                  )));
+  }
+
+  Widget _errorBuilder(
+      BuildContext context, Object exception, StackTrace? stackTrace) {
+    return const Center(
+        child: Icon(
+      Icons.image,
+      size: 65,
+    ));
+  }
+
+  Widget _loadingBuilder(context, child, loadingProgress) {
+    if (loadingProgress == null) {
+      return child;
+    } else {
+      return Center(
+          child: SizedBox(
+              width: 40,
+              height: 40,
+              child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircularProgressIndicator(
+                      color: primary, strokeWidth: 2.0))));
+    }
   }
 
   Widget _buildDoctorDetails() {
