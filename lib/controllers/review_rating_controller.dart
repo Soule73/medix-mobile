@@ -62,7 +62,7 @@ class ReviewRatingController extends GetxController {
         credential: data, path: "/review-rating/update/$id");
     if (review != null) {
       successDialog(
-          onClose: () => Get.to(ReviewsScreen()),
+          onClose: () => Get.to(() => ReviewsScreen()),
           title: "success".tr,
           body: "review-update".tr);
     } else {

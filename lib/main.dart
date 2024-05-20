@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:medix/controllers/appointment_controller.dart';
+import 'package:medix/controllers/appointment_detail_controller.dart';
 import 'package:medix/controllers/doctor_controller.dart';
 import 'package:medix/controllers/favoris_controller.dart';
 import 'package:medix/controllers/lang_controller.dart';
@@ -21,7 +22,6 @@ import 'package:medix/screens/auth/login/login_screen.dart';
 import 'package:medix/screens/welcome_screen.dart';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   try {
@@ -39,7 +39,7 @@ void main() async {
   Get.put(AppointmentController(), permanent: true);
   Get.put(OneSignalNotification(), permanent: true);
   Get.put(ThemeController(), permanent: true);
-
+  Get.lazyPut(() => AppointmentDetailController(), fenix: true);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Get.isDarkMode ? darkBg : primary,
     // statusBarIconBrightness:

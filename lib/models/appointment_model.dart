@@ -2,6 +2,8 @@ class Appointment {
   int? id;
   int? patientId;
   String? dateAppointment;
+  String? rescheduleDate;
+  bool? addByDoctor;
   String? reasonForRefusal;
   String? acceptedMessage;
   String? motif;
@@ -26,6 +28,8 @@ class Appointment {
       {this.id,
       this.patientId,
       this.dateAppointment,
+      this.rescheduleDate,
+      this.addByDoctor,
       this.reasonForRefusal,
       this.acceptedMessage,
       this.motif,
@@ -50,6 +54,8 @@ class Appointment {
     id = json['id'];
     patientId = json['patient_id'];
     dateAppointment = json['date_appointment'];
+    rescheduleDate = json['reschedule_date'];
+    addByDoctor = json['add_by_doctor'];
     reasonForRefusal = json['reason_for_refusal'];
     acceptedMessage = json['accepted_message'];
     motif = json['motif'];
@@ -78,6 +84,8 @@ class Appointment {
     data['id'] = id;
     data['patient_id'] = patientId;
     data['date_appointment'] = dateAppointment;
+    data['reschedule_date'] = rescheduleDate;
+    data['add_by_doctor'] = addByDoctor;
     data['reason_for_refusal'] = reasonForRefusal;
     data['accepted_message'] = acceptedMessage;
     data['motif'] = motif;
@@ -97,7 +105,7 @@ class Appointment {
     data['work_place_latitude'] = workPlaceLatitude;
     data['work_place_longitude'] = workPlaceLongitude;
     if (reviewRating != null) {
-      data['review-rating'] = reviewRating?.toJson();
+      data['review-rating'] = reviewRating!.toJson();
     }
     return data;
   }

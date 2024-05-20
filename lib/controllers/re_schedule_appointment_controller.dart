@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medix/controllers/appointment_detail_controller.dart';
 import 'package:medix/controllers/auth/auth.dart';
 import 'package:medix/controllers/doctor_controller.dart';
 import 'package:medix/models/appointment_model.dart';
@@ -67,9 +68,11 @@ class ReScheduleAppointmentController extends GetxController
             title: "success".tr,
             body: "appointment-reschedule-success".tr,
             onClose: () {
+              Get.find<AppointmentDetailController>().appointment.value =
+                  appointment;
               Get.off(() => AppointmentDetailScreen(
                     back: false,
-                    appointment: appointment,
+                    // appointment: appointment,
                   ));
             });
       } else {

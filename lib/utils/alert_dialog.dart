@@ -87,6 +87,7 @@ Future<dynamic> alertDialog(
       actionsPadding: const EdgeInsets.only(bottom: 5, left: 5, right: 5),
       icon: Center(
         child: Container(
+          padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             gradient: LinearGradient(

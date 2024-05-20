@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medix/constants/couleurs.dart';
 import 'package:medix/controllers/appointment_controller.dart';
+import 'package:medix/controllers/appointment_detail_controller.dart';
 import 'package:medix/controllers/doctor_controller.dart';
 import 'package:medix/layouts/default_scaffold.dart';
 import 'package:medix/models/appointment_model.dart';
@@ -16,31 +17,38 @@ import 'package:medix/widgets/doctor/back_btn.dart';
 import 'package:medix/widgets/doctor/doc_info.dart';
 
 class AppointmentDetailScreen extends StatelessWidget {
-  AppointmentDetailScreen(
-      {super.key, this.back = true, this.index, required this.appointment});
+  AppointmentDetailScreen({super.key, this.back = true, this.index});
 
   final int? index;
 
   final AppointmentController appointmentController =
       Get.find<AppointmentController>();
   final bool back;
-  final Appointment appointment;
-
+  final AppointmentDetailController appointmentDetailController =
+      Get.find<AppointmentDetailController>();
+  final Map<String, Color> statusColor = {
+    "pending": warning,
+    "finished": primary,
+    "accepted": success,
+    "denied": error
+  };
   @override
   Widget build(BuildContext context) {
+    final Appointment appointment =
+        appointmentDetailController.appointment.value;
+
     return Obx(() {
+      if (appointment.reviewRating != null) {
+        appointmentDetailController.reviewRating.value =
+            appointment.reviewRating;
+      }
       final Map<String, String> status = {
         "pending": "appointment-pending".tr,
         "finished": "appointment-finished".tr,
         "accepted": "appointment-accepted".tr,
         "denied": "appointment-denied".tr
       };
-      final Map<String, Color> statusColor = {
-        "pending": warning,
-        "finished": primary,
-        "accepted": success,
-        "denied": error
-      };
+
       final List<Map<String, dynamic>> titleValue = [
         {
           'title': 'Id : ',
@@ -108,27 +116,31 @@ class AppointmentDetailScreen extends StatelessWidget {
                   _motif(),
                   _acceptedMsg(),
                   _refusedMesg(),
-                  _buildReviewedButton(),
-                  _buildReviewButton()
-                  // _rateDoctorBtn()
+                  _rateDoctorBtn()
                 ]))),
-        bottomNavigationBar:
-            '${appointment.status}' == "pending" ? _appointmentAction() : null,
+        bottomNavigationBar: appointment.rescheduleDate != null ||
+                '${appointment.status}' == "pending"
+            ? _appointmentAction()
+            : null,
       );
     });
   }
 
   Widget _rateDoctorBtn() {
-    // Vérifiez l'état de la revue et l'état de l'appointment
-    if (appointment.reviewRating != null) {
-      return _buildReviewedButton();
-    } else if (appointment.status == 'finished') {
-      return _buildReviewButton();
-    }
-    return const SizedBox.shrink();
+    final Appointment appointment =
+        appointmentDetailController.appointment.value;
+    return Obx(() {
+      // Vérifiez l'état de la revue et l'état de l'appointment
+      if (appointmentDetailController.reviewRating.value != null) {
+        return _buildReviewed();
+      } else if (appointment.status == 'finished') {
+        return _buildAddReviewButton();
+      }
+      return const SizedBox.shrink();
+    });
   }
 
-  Widget _buildReviewedButton() {
+  Widget _buildReviewed() {
     // Construisez le bouton pour les rendez-vous évalués
     return Column(children: [
       Container(
@@ -144,48 +156,117 @@ class AppointmentDetailScreen extends StatelessWidget {
               Get.to(() => RateDoctorScreen());
             });
           },
-          child: AppointmentReview(appointment: appointment))
+          child: AppointmentReview())
     ]);
   }
 
-  Widget _buildReviewButton() {
+  Widget _buildAddReviewButton() {
+    final Appointment appointment =
+        appointmentDetailController.appointment.value;
+
     // Construisez le bouton pour écrire une nouvelle revue
     return Padding(
         padding: const EdgeInsets.only(top: 28.0, left: 50, right: 50),
         child: OutlinedBtn(
             height: 40,
             onPressed: () {
-              // Utilisez un callback pour gérer la navigation
-              // WidgetsBinding.instance.addPostFrameCallback((_) {
-              //   Get.to(() => RateDoctorScreen());
-              // });
+              Get.find<AppointmentDetailController>().appointment.value =
+                  appointment;
+              Get.to(() => RateDoctorScreen());
             },
             title: "write-your-review".tr));
   }
 
   Widget _appointmentAction() {
-    return Padding(
-        padding: const EdgeInsets.only(bottom: 80.0),
-        child: Row(
-            mainAxisAlignment: index != null
-                ? MainAxisAlignment.spaceEvenly
-                : MainAxisAlignment.center,
-            children: [
-              index != null
-                  ? Obx(() => OutlinedBtn(
-                      isLoad: appointmentController.isLoadDeleting.value,
-                      title: "canceled".tr,
-                      color: error,
-                      width: Get.width * 0.4,
-                      height: 40,
-                      onPressed: () => _deleteAppointment()))
-                  : const SizedBox.shrink(),
-              FadeBtn(
-                  title: "reschedule".tr,
-                  width: index != null ? Get.width * 0.4 : Get.width * 0.8,
-                  height: 40,
-                  onPressed: _handleTapReSchedule)
-            ]));
+    final Appointment appointment =
+        appointmentDetailController.appointment.value;
+    List<Widget> children = [];
+    if (appointment.status == "pending" || appointment.rescheduleDate != null) {
+      children.add(Obx(() => OutlinedBtn(
+          isLoad: appointmentController.isLoadDeleting.value,
+          title: "canceled".tr,
+          color: error,
+          width: Get.width * 0.4,
+          height: 40,
+          onPressed: () => _deleteAppointment())));
+    }
+    if (appointment.status == "pending" && appointment.rescheduleDate == null) {
+      children.add(FadeBtn(
+          title: "reschedule".tr,
+          width: Get.width * 0.4,
+          height: 40,
+          onPressed: _handleTapReSchedule));
+    }
+    if (appointment.rescheduleDate != null) {
+      children.add(FadeBtn(
+          title: "Confirme".tr,
+          width: Get.width * 0.4,
+          height: 40,
+          onPressed: _confirmAppointment));
+    }
+    Widget isRescheduleDate() {
+      if (appointment.rescheduleDate != null) {
+        bool addByDoctor = appointment.addByDoctor ?? false;
+        return Container(
+            width: double.infinity,
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+            decoration:
+                BoxDecoration(color: Get.theme.primaryColor.withOpacity(0.2)),
+            child: Text(
+                textAlign: TextAlign.center,
+                '${addByDoctor ? "Vous avez un rendez-vous de suivi avec votre médecin" : "Le médecin à reporter le rendez-vous".tr} : \n${appointment.rescheduleDate}'));
+      }
+      return const SizedBox.shrink();
+    }
+
+    return Container(
+        height: appointment.rescheduleDate != null ? 100 : 50,
+        margin: const EdgeInsets.only(bottom: 50.0),
+        child: Column(
+          children: [
+            isRescheduleDate(),
+            Row(
+                mainAxisAlignment: children.length == 2
+                    ? MainAxisAlignment.spaceEvenly
+                    : MainAxisAlignment.center,
+                children: children),
+          ],
+        ));
+  }
+
+  void _confirmAppointment() {
+    return successDialog(
+        title: "Confirmer".tr,
+        body: "Êtes-vous certain de confirmé le rendez-vous?".tr,
+        actions: [
+          TextButton(
+              onPressed: _confirm,
+              child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                  decoration: BoxDecoration(
+                      color: success.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: SizedBox(
+                      width: 50,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Obx(() => appointmentController.isLoadConfirm.value
+                                ? Container(
+                                    margin: const EdgeInsets.only(right: 5),
+                                    width: 15,
+                                    height: 15,
+                                    child: CircularProgressIndicator(
+                                        strokeWidth: 2, color: success))
+                                : const SizedBox.shrink()),
+                            Text("yes".tr,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: success))
+                          ]))))
+        ]);
   }
 
   void _deleteAppointment() {
@@ -222,21 +303,40 @@ class AppointmentDetailScreen extends StatelessWidget {
   }
 
   void _delete() async {
+    final Appointment appointment =
+        appointmentDetailController.appointment.value;
+
     int? appointmentId = appointment.id;
-    int? deletIndex = index;
-    if (deletIndex != null && appointmentId != null) {
+    if (appointmentId != null) {
       await appointmentController.canceledAppointment(
-          deletIndex, appointmentId);
+          index: index, appointmentId: appointmentId);
+    }
+  }
+
+  void _confirm() async {
+    final Appointment appointment =
+        appointmentDetailController.appointment.value;
+
+    int? appointmentId = appointment.id;
+    if (appointmentId != null) {
+      await appointmentController.confirmAppointment(
+          appointmentId: appointmentId);
     }
   }
 
   void _handleTapReSchedule() async {
+    final Appointment appointment =
+        appointmentDetailController.appointment.value;
+
     await Get.find<DoctorController>()
         .fetchDoctorDetails(appointment.doctorId.toString());
     Get.to(() => ReScheduleAppointmentScreen(appointment: appointment));
   }
 
   Widget _motif() {
+    final Appointment appointment =
+        appointmentDetailController.appointment.value;
+
     String? motif = appointment.motif;
 
     return motif != null
@@ -245,6 +345,9 @@ class AppointmentDetailScreen extends StatelessWidget {
   }
 
   Widget _acceptedMsg() {
+    final Appointment appointment =
+        appointmentDetailController.appointment.value;
+
     String? acceptedMessage = appointment.acceptedMessage;
 
     return acceptedMessage != null
@@ -254,6 +357,9 @@ class AppointmentDetailScreen extends StatelessWidget {
   }
 
   Widget _refusedMesg() {
+    final Appointment appointment =
+        appointmentDetailController.appointment.value;
+
     String? reasonForRefusal = appointment.reasonForRefusal;
 
     return reasonForRefusal != null

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:medix/controllers/appointment_detail_controller.dart';
 import 'package:medix/models/appointment_model.dart';
 import 'package:medix/models/link_model.dart';
 import 'package:medix/screens/appointment/appointment_screen.dart';
@@ -11,6 +12,7 @@ import 'package:medix/utils/alert_dialog.dart';
 class AppointmentController extends GetxController {
   RxBool isLoad = false.obs;
   RxBool isLoadDeleting = false.obs;
+  RxBool isLoadConfirm = false.obs;
   ApiAppointment apiAppointment = ApiAppointment();
   Rx<List<Appointment?>> appointmentList = Rx<List<Appointment?>>([]);
   RxList<Link> linksList = <Link>[].obs;
@@ -46,26 +48,44 @@ class AppointmentController extends GetxController {
   /// nominationId (int) : Le paramètre `appointmentId` est une valeur entière qui représente l'unique
   /// identifiant du rendez-vous à annuler. Il est utilisé pour identifier le spécifique
   /// rendez-vous que l'utilisateur souhaite annuler dans la liste de rendez-vous.
-  Future<void> canceledAppointment(int index, int appointmentId) async {
+  Future<void> canceledAppointment(
+      {int? index, required int appointmentId}) async {
     isLoadDeleting.value = true;
-    if (appointmentList.value.contains(appointmentList.value[index])) {
-      final bool delete =
-          await apiAppointment.deleteAppointment(appointmentId: appointmentId);
-      if (delete) {
-        successDialog(
-          title: "success".tr,
-          body: "appointment-delete-success".tr,
-        );
-        Future.delayed(Duration.zero, () {
-          Get.off(() => AppointmentScreen(
-                back: false,
-              ));
+
+    final bool delete =
+        await apiAppointment.deleteAppointment(appointmentId: appointmentId);
+    if (delete) {
+      successDialog(
+        title: "success".tr,
+        body: "appointment-delete-success".tr,
+      );
+      Future.delayed(Duration.zero, () {
+        Get.off(() => AppointmentScreen(
+              back: false,
+            ));
+      });
+      if (index != null) {
+        if (appointmentList.value.contains(appointmentList.value[index])) {
           appointmentList.value.remove(appointmentList.value[index]);
-        });
-      } else {
-        defaultErrorDialog();
+        }
       }
+    } else {
+      defaultErrorDialog();
     }
     isLoadDeleting.value = false;
+  }
+
+  Future<void> confirmAppointment({required int appointmentId}) async {
+    isLoadConfirm.value = true;
+    Appointment? appointment =
+        await apiAppointment.confirmAppointment(appointmentId: appointmentId);
+
+    if (appointment != null) {
+      successDialog(title: "success".tr, body: "Le rendez-vous est confirmé");
+      Get.find<AppointmentDetailController>().appointment.value = appointment;
+    } else {
+      defaultErrorDialog();
+    }
+    isLoadConfirm.value = false;
   }
 }

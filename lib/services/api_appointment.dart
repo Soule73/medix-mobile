@@ -77,6 +77,19 @@ class ApiAppointment {
     );
   }
 
+  Future<Appointment?> confirmAppointment({required int appointmentId}) async {
+    String endpoint = '/appointment/confirm-appoinment/$appointmentId';
+    String? token = await getToken();
+
+    return await performRequest(
+      endpoint: endpoint,
+      headers: buildHeader(token: token),
+      method: 'PATCH',
+      onSuccess: (dynamic data, int statusCode) => Appointment.fromJson(data),
+      onError: (String error, int statusCode) => null,
+    );
+  }
+
   /// Supprime un rendez-vous existant.
   /// [appointmentId] L'identifiant du rendez-vous à supprimer.
   /// Retourne un booléen indiquant le succès ou l'échec de l'opération.

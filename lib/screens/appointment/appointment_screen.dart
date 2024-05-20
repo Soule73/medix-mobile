@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:medix/constants/couleurs.dart';
 import 'package:medix/controllers/appointment_controller.dart';
+import 'package:medix/controllers/appointment_detail_controller.dart';
 import 'package:medix/layouts/default_scaffold.dart';
 import 'package:medix/models/appointment_model.dart';
 import 'package:medix/screens/appointment/appointment_detail_screen.dart';
@@ -168,9 +169,10 @@ class AppointmentItem extends StatelessWidget {
   }
 
   void _getDetailScreen() {
+    Get.find<AppointmentDetailController>().appointment.value = appointment;
     Get.to(() => AppointmentDetailScreen(
           index: index,
-          appointment: appointment,
+          // appointment: appointment,
         ));
   }
 }
