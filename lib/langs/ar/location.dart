@@ -1,0 +1,21 @@
+final Map<String, String> locationAR = {
+  "Info": "معلومات",
+  "doctor": "طبيب",
+  "distance": "مسافة",
+  "duration": "مدة",
+  "confirmer": "تأكيد",
+  "adresse": "عنوان",
+  "are-your-sur-to-confirm": "هل تؤكد موعدك؟",
+  "find-a-doctor": "ابحث عن طبيب",
+  "find-a-closer-doctor": "ابحث عن طبيب قريب",
+  "your-position": "موقعك",
+  "view-profile": "عرض الملف الشخصي",
+  "approximate-radius": "النطاق التقريبي",
+  "unable-to-display-map": "عرض الخريطة غير متاح",
+  "only-places-within-a-maximum-radius-of-5km": "العرض محدود بنطاق 5 كم",
+  "follow-up-appointment-with-your-doctor": "متابعة الاستشارة مع طبيبك",
+  "the-doctor-postponed-the-appointment": "الطبيب أجل الموعد",
+  "location-services-are-disabled": "خدمات الموقع معطلة. يرجى تفعيل الخدمة",
+  "location-permissions-are-denied": "تم رفض إذن الموقع",
+  "location-permissions-are-permanently-denied": "تم رفض إذن الموقع بشكل دائم"
+};
