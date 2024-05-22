@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.medix"
+    namespace "com.sdssoum.medix"
     // compileSdk flutter.compileSdkVersion
     compileSdk 34
     ndkVersion flutter.ndkVersion
@@ -34,7 +34,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 
     sourceSets {

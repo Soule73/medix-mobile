@@ -106,7 +106,7 @@ class OutlinedBtn extends StatelessWidget {
 
   ButtonStyle _buttonStyle() {
     return ButtonStyle(
-        backgroundColor: _btnBackgroundColor(Colors.transparent),
+        backgroundColor: _btnBackgroundColor(Get.theme.cardColor),
         shape: _btnShape(radius),
         side: MaterialStatePropertyAll(
             BorderSide(width: 1, color: color ?? primary)),

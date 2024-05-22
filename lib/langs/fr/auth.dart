@@ -15,7 +15,7 @@ final Map<String, String> authFR = {
   'dont-have-account': "Vous n'avez pas de compte ?",
   'login-create-account': 'Créer un compte',
   'term-and-condition':
-      "J'accepte la politique de confidentialité, les conditions d'utilisation et les conditions de service",
+      "J’ai lu et j’accepte la politique de confidentialité et les conditions d’utilisation.",
   'term-accepted-required-checkbox': 'Ce champ doit être coché',
   'already-registerededed': 'Déjà inscrit(e)',
   'have-account-signin': 'Se connecter',
@@ -70,4 +70,19 @@ final Map<String, String> authFR = {
   'appointment-reschedule-success':
       'Votre rendez-vous est reporté et attend la confirmation du médecin.',
   'appointment-delete-success': 'Votre rendez-vous a été annulé avec succès.',
+  "medix-term-and-condition":
+      "Conditions d’Utilisation et Politique de Confidentialité de Medix",
+  "accept-term-and-condition": "1. Acceptation des Conditions",
+  "if-create-account-in-medix":
+      "En créant un compte sur l’application Medix, vous acceptez de vous conformer à nos conditions d’utilisation et à notre politique de confidentialité. Medix vous permet de rechercher et de réserver des rendez-vous avec des médecins de diverses spécialités.",
+  "collection-of-personal-information":
+      "2. Collecte des Informations Personnelles",
+  "yout-personal-information":
+      "Les informations personnelles que vous fournissez lors de la création de votre compte, telles que votre nom, prénom et date de naissance, sont strictement confidentielles. Elles seront accessibles uniquement par vous et par les médecins avec lesquels vous avez pris rendez-vous.",
+  "medical-records": "3. Gestion des Dossiers Médicaux",
+  "the-doctors-you-consult-through-medix-can-manage-your-medical-file":
+      "Les médecins que vous consultez via Medix peuvent gérer votre dossier médical et vous proposer des rendez-vous de suivi médical. Ils sont les seuls, en dehors de vous-même, à avoir accès à vos informations médicales.",
+  "privacy-and-Security": "4. Confidentialité et Sécurité",
+  "your-personal-and-medical-information":
+      "Vos informations personnelles et médicales"
 };

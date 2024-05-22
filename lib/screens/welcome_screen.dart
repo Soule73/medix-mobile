@@ -5,12 +5,15 @@ import 'package:get/get.dart';
 import 'package:medix/constants/constants.dart';
 import 'package:medix/constants/couleurs.dart';
 import 'package:medix/controllers/doctor_controller.dart';
+import 'package:medix/controllers/location_controller.dart';
+// import 'package:medix/controllers/location_controller.dart';
 import 'package:medix/controllers/notification_controller.dart';
 import 'package:medix/controllers/speciality_controller.dart';
 import 'package:medix/layouts/default_scaffold.dart';
 import 'package:medix/models/specility_model.dart';
 import 'package:medix/screens/doctor/show_doctors_list.dart';
 import 'package:medix/screens/doctor/top_doctors_by_specility.dart';
+import 'package:medix/widgets/bottom_sheet_action_item.dart';
 import 'package:medix/widgets/boutons/button.dart';
 import 'package:medix/widgets/doctor/bottom_sheet_speciality.dart';
 import 'package:medix/widgets/doctor/speciality_filter.dart';
@@ -37,6 +40,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldDefault(
+        floatingActionButton: _buildFloatingActionButton(),
         body: SingleChildScrollView(
             physics: const ScrollPhysics(),
             child: Padding(
@@ -72,6 +76,26 @@ class WelcomeScreen extends StatelessWidget {
         }
       })
     ]);
+  }
+
+  Widget _buildFloatingActionButton() {
+    LocationController locationController = Get.find<LocationController>();
+    return Obx(() => GestureDetector(
+        onTap: locationController.isLoadLocation.value
+            ? null
+            : () => locationController.getchWorkPlaceLocations(),
+        child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Get.theme.primaryColor.withOpacity(0.3)),
+            child: locationController.isLoadLocation.value
+                ? buildLoadingIndicatorSmall(color: primary)
+                : Icon(
+                    Icons.map,
+                    color: primary,
+                    size: 30,
+                  ))));
   }
 
   Widget _buildDoctorsHeader() {

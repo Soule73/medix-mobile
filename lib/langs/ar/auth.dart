@@ -14,7 +14,7 @@ final Map<String, String> authAR = {
   "login-btn": "تسجيل الدخول",
   "dont-have-account": "ليس لديك حساب؟",
   "login-create-account": "اشتراك",
-  "term-and-condition": "أوافق على شروط الخدمة وسياسة الخصوصية وشروط الاستخدام",
+  "term-and-condition": "لقد قرأت وقبلت سياسة الخصوصية وشروط الاستخدام.",
   "term-accepted-required-checkbox": "هذا الحقل مطلوب",
   "already-registered": "مسجل مسبقا؟",
   "have-account-signin": "تسجيل الدخول",
@@ -67,5 +67,17 @@ final Map<String, String> authAR = {
   'reset': 'إعادة تعيين',
   'appointment-reschedule-success':
       'تم إعادة جدولة موعدك بنجاح وينتظر تأكيد الطبيب.',
-  'appointment-delete-success': 'تم إلغاء موعدك بنجاح.'
+  'appointment-delete-success': 'تم إلغاء موعدك بنجاح.',
+  "medix-term-and-condition": "شروط الاستخدام وسياسة الخصوصية لميديكس",
+  "accept-term-and-condition": "1. قبول الشروط",
+  "if-create-account-in-medix":
+      "بإنشاء حساب على تطبيق ميديكس، فإنك توافق على الالتزام بشروط الاستخدام وسياسة الخصوصية لدينا. يتيح لك ميديكس البحث عن الأطباء وحجز المواعيد مع أطباء من تخصصات متنوعة.",
+  "collection-of-personal-information": "2. جمع المعلومات الشخصية",
+  "yout-personal-information":
+      "المعلومات الشخصية التي تقدمها عند إنشاء حسابك، مثل اسمك الأول واسم العائلة وتاريخ ميلادك، هي سرية للغاية. ستكون متاحة فقط لك وللأطباء الذين قمت بحجز مواعيد معهم.",
+  "medical-records": "3. إدارة السجلات الطبية",
+  "the-doctors-you-consult-through-medix-can-manage-your-medical-file":
+      "يمكن للأطباء الذين تتشاور معهم من خلال ميديكس إدارة ملفك الطبي وعرض مواعيد المتابعة الطبية. هم فقط، بجانبك، من لديهم الوصول إلى معلوماتك الطبية.",
+  "privacy-and-Security": "4. الخصوصية والأمان",
+  "your-personal-and-medical-information": "معلوماتك الشخصية والطبية"
 };

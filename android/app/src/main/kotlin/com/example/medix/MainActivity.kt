@@ -1,4 +1,4 @@
-package com.example.medix
+package com.sdssoum.medix
 
 // import io.flutter.embedding.android.FlutterActivity
 

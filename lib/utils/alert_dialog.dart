@@ -45,7 +45,7 @@ void errorDialog(
       title: title,
       body: body,
       colors: [Colors.red[200]!, Colors.red[700]!],
-      icon: FontAwesomeIcons.circleExclamation);
+      icon: FontAwesomeIcons.exclamation);
 }
 
 /// Affiche un dialogue d'avertissement avec un titre et un corps personnalisés.
@@ -87,7 +87,7 @@ Future<dynamic> alertDialog(
       actionsPadding: const EdgeInsets.only(bottom: 5, left: 5, right: 5),
       icon: Center(
         child: Container(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             gradient: LinearGradient(

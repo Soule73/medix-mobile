@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:medix/constants/constants.dart';
 import 'package:medix/constants/couleurs.dart';
 import 'package:medix/controllers/appointment_controller.dart';
 import 'package:medix/controllers/appointment_detail_controller.dart';
 import 'package:medix/controllers/doctor_controller.dart';
+import 'package:medix/controllers/location_controller.dart';
 import 'package:medix/layouts/default_scaffold.dart';
 import 'package:medix/models/appointment_model.dart';
 import 'package:medix/screens/appointment/appointment_screen.dart';
@@ -116,6 +120,7 @@ class AppointmentDetailScreen extends StatelessWidget {
                   _motif(),
                   _acceptedMsg(),
                   _refusedMesg(),
+                  _routePolyLine(appointment),
                   _rateDoctorBtn()
                 ]))),
         bottomNavigationBar: appointment.rescheduleDate != null ||
@@ -124,6 +129,49 @@ class AppointmentDetailScreen extends StatelessWidget {
             : null,
       );
     });
+  }
+
+  Widget _routePolyLine(Appointment appointment) {
+    LocationController locationController = Get.find<LocationController>();
+    double? workPlaceLongitude = appointment.workPlaceLongitude;
+    double? workPlaceLatitude = appointment.workPlaceLatitude;
+
+    if (workPlaceLatitude != null && workPlaceLongitude != null) {
+      List<Widget> children = <Widget>[];
+      children.add(
+        SizedBox(height: 500, child: RoutePolyLine(appointment: appointment)),
+      );
+
+      children.add(Obx(() {
+        if (locationController.segmentsDistance.value > 0) {
+          return TitleWithValue(
+              title: "distance".tr, value: locationController.distance());
+        }
+        return const SizedBox();
+      }));
+      children.add(Obx(() {
+        if (locationController.segmentsDuration.value > 0) {
+          return TitleWithValue(
+              title: "duration".tr, value: locationController.duration());
+        }
+        return const SizedBox();
+      }));
+      return Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            color:
+                (statusColor['${appointment.status}'] ?? Get.theme.primaryColor)
+                    .withOpacity(0.2)),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+        margin: const EdgeInsets.symmetric(vertical: 15),
+        width: double.infinity,
+        child: Column(
+          children: children,
+        ),
+      );
+    }
+
+    return const SizedBox.shrink();
   }
 
   Widget _rateDoctorBtn() {
@@ -142,22 +190,17 @@ class AppointmentDetailScreen extends StatelessWidget {
 
   Widget _buildReviewed() {
     // Construisez le bouton pour les rendez-vous évalués
-    return Column(children: [
-      Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text("your-review".tr,
-              style:
-                  const TextStyle(fontSize: 18, fontWeight: FontWeight.w600))),
-      GestureDetector(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: GestureDetector(
           onTap: () {
             // Utilisez un callback pour gérer la navigation
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Get.to(() => RateDoctorScreen());
             });
           },
-          child: AppointmentReview())
-    ]);
+          child: AppointmentReview()),
+    );
   }
 
   Widget _buildAddReviewButton() {
@@ -199,7 +242,7 @@ class AppointmentDetailScreen extends StatelessWidget {
     }
     if (appointment.rescheduleDate != null) {
       children.add(FadeBtn(
-          title: "Confirme".tr,
+          title: "confirme".tr,
           width: Get.width * 0.4,
           height: 40,
           onPressed: _confirmAppointment));
@@ -215,7 +258,7 @@ class AppointmentDetailScreen extends StatelessWidget {
                 BoxDecoration(color: Get.theme.primaryColor.withOpacity(0.2)),
             child: Text(
                 textAlign: TextAlign.center,
-                '${addByDoctor ? "Vous avez un rendez-vous de suivi avec votre médecin" : "Le médecin à reporter le rendez-vous".tr} : \n${appointment.rescheduleDate}'));
+                '${addByDoctor ? "follow-up-appointment-with-your-doctor".tr : "the-doctor-postponed-the-appointment".tr} : \n${appointment.rescheduleDate}'));
       }
       return const SizedBox.shrink();
     }
@@ -237,8 +280,8 @@ class AppointmentDetailScreen extends StatelessWidget {
 
   void _confirmAppointment() {
     return successDialog(
-        title: "Confirmer".tr,
-        body: "Êtes-vous certain de confirmé le rendez-vous?".tr,
+        title: "confirmer".tr,
+        body: "are-your-sur-to-confirm".tr,
         actions: [
           TextButton(
               onPressed: _confirm,
@@ -327,9 +370,11 @@ class AppointmentDetailScreen extends StatelessWidget {
   void _handleTapReSchedule() async {
     final Appointment appointment =
         appointmentDetailController.appointment.value;
+    int? doctorId = appointment.doctorId;
+    if (doctorId != null) {
+      await Get.find<DoctorController>().fetchDoctorDetails(doctorId);
+    }
 
-    await Get.find<DoctorController>()
-        .fetchDoctorDetails(appointment.doctorId.toString());
     Get.to(() => ReScheduleAppointmentScreen(appointment: appointment));
   }
 
@@ -424,5 +469,83 @@ class TitleWithValue extends StatelessWidget {
                   color: Get.theme.primaryColor)),
           Text(value, style: const TextStyle(fontWeight: FontWeight.normal))
         ]));
+  }
+}
+
+class RoutePolyLine extends StatelessWidget {
+  RoutePolyLine({super.key, required this.appointment});
+
+  final Appointment appointment;
+  final LocationController locationController = Get.find<LocationController>();
+
+  @override
+  Widget build(BuildContext context) {
+    locationController.getCoordinates();
+    return Obx(() {
+      if (locationController.isLoadToGetCurrentPosition.value) {
+        return const Center(child: CircularProgressIndicator());
+      }
+      if (locationController.currentPosition.value != null) {
+        return _buildMap();
+      }
+      return const SizedBox();
+    });
+  }
+
+  Widget _buildMap() {
+    final currentPosition = locationController.currentPosition.value!;
+    final startPoint =
+        LatLng(currentPosition.latitude, currentPosition.longitude);
+    final endPoint =
+        LatLng(appointment.workPlaceLatitude!, appointment.workPlaceLongitude!);
+
+    return FlutterMap(
+      options: MapOptions(initialZoom: 12.3, initialCenter: startPoint),
+      children: [
+        TileLayer(
+          urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+          userAgentPackageName: applicationId,
+        ),
+        MarkerLayer(markers: _buildMarkers(startPoint, endPoint)),
+        Obx(() => locationController.points.isNotEmpty
+            ? PolylineLayer(
+                polylineCulling: false,
+                polylines: [
+                  Polyline(
+                      points: locationController.points,
+                      color: Colors.black,
+                      strokeWidth: 5),
+                ],
+              )
+            : const SizedBox.shrink()),
+      ],
+    );
+  }
+
+  List<Marker> _buildMarkers(LatLng startPoint, LatLng endPoint) {
+    return [
+      Marker(
+        point: startPoint,
+        width: 80,
+        height: 80,
+        child: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.location_on),
+          color: Colors.green,
+          iconSize: 45,
+        ),
+      ),
+      Marker(
+        point: endPoint,
+        width: 80,
+        height: 80,
+        child: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.location_on),
+          color: Colors.red,
+          iconSize: 45,
+        ),
+      ),
+    ];
   }
 }

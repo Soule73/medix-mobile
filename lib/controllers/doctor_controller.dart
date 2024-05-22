@@ -11,6 +11,9 @@ import 'package:medix/services/api_doctor.dart';
 /// Permet de récupérer la liste des médecins, leurs détails, et de gérer les filtres
 /// de recherche par spécialité. Utilise le package GetX pour la gestion d'état.
 class DoctorController extends GetxController {
+  //
+  RxInt currentDoctorId = 0.obs;
+
   /// Initialisation du contrôleur.
   ///
   /// Lance la récupération des médecins dès l'initialisation du contrôleur.
@@ -102,12 +105,15 @@ class DoctorController extends GetxController {
   ///
   /// [doctorId] L'identifiant du médecin.
   /// Retourne `void`.
-  Future<void> fetchDoctorDetails(String doctorId) async {
-    isLoadingDoctorDetail.value = true;
-    weeklySchedule.value = null;
-    reviewRatings.value = [];
-    await apiDoctor.fetchDoctorDetails(doctorId: doctorId);
-    isLoadingDoctorDetail.value = false;
+  Future<void> fetchDoctorDetails(int doctorId) async {
+    if (currentDoctorId.value != doctorId) {
+      isLoadingDoctorDetail.value = true;
+      weeklySchedule.value = null;
+      reviewRatings.value = [];
+      await apiDoctor.fetchDoctorDetails(doctorId: doctorId);
+      isLoadingDoctorDetail.value = false;
+      currentDoctorId.value = doctorId;
+    }
   }
 
   /// Ajoute ou supprime une spécialité dans le filtre.

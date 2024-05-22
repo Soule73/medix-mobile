@@ -10,6 +10,7 @@ import 'package:medix/controllers/appointment_detail_controller.dart';
 import 'package:medix/controllers/doctor_controller.dart';
 import 'package:medix/controllers/favoris_controller.dart';
 import 'package:medix/controllers/lang_controller.dart';
+import 'package:medix/controllers/location_controller.dart';
 import 'package:medix/controllers/notification_controller.dart';
 import 'package:medix/controllers/one_signal.dart';
 import 'package:medix/controllers/speciality_controller.dart';
@@ -39,6 +40,7 @@ void main() async {
   Get.put(AppointmentController(), permanent: true);
   Get.put(OneSignalNotification(), permanent: true);
   Get.put(ThemeController(), permanent: true);
+  Get.put(LocationController(), permanent: true);
   Get.lazyPut(() => AppointmentDetailController(), fenix: true);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Get.isDarkMode ? darkBg : primary,

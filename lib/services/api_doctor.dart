@@ -9,6 +9,7 @@ import 'package:medix/models/qualification_model.dart';
 import 'package:medix/models/review_ratings.dart';
 import 'package:medix/models/schedule_model.dart';
 import 'package:medix/services/perform_request.dart';
+import 'package:medix/utils/alert_dialog.dart';
 import 'package:medix/utils/utils.dart';
 
 class ApiDoctor {
@@ -70,11 +71,25 @@ class ApiDoctor {
         [];
   }
 
+  Future<Doctor?> findDoctor({required int doctorId}) async {
+    return await performRequest(
+      endpoint: '/doctor/find/$doctorId',
+      headers: buildHeader(token: await getToken()),
+      method: 'POST',
+      onSuccess: (dynamic data, int statusCode) =>
+          Doctor.fromJson(data['data']),
+      onError: (String error, int statusCode) {
+        defaultErrorDialog();
+        return null;
+      },
+    );
+  }
+
   /// Récupère les détails d'un médecin spécifique, y compris les horaires de travail et les évaluations.
   /// [doctorId] L'identifiant du médecin.
   /// [token] Le token d'authentification de l'utilisateur.
   /// Retourne `void`.
-  Future<void> fetchDoctorDetails({String? doctorId = ''}) async {
+  Future<void> fetchDoctorDetails({required int doctorId}) async {
     String? token = await getToken();
     await performRequest(
       endpoint: '/doctor/$doctorId',

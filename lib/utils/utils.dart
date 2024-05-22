@@ -4,14 +4,17 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:medix/constants/constants.dart';
 import 'package:medix/controllers/lang_controller.dart';
-import 'package:platform_device_id_v3/platform_device_id.dart';
+import 'package:flutter_device_id/flutter_device_id.dart';
 
 /// Gestion sécurisée du stockage des données.
 const storage = FlutterSecureStorage();
 
 /// Récupère l'identifiant unique de l'appareil.
-Future getDeviceId() async {
-  String? deviceId = await PlatformDeviceId.getDeviceId;
+Future<String> getDeviceId() async {
+  final flutterDeviceIdPlugin = FlutterDeviceId();
+
+  String? deviceId = await flutterDeviceIdPlugin.getDeviceId() ?? '';
+
   return deviceId;
 }
 
@@ -180,4 +183,22 @@ String addHourToDate(String date, String hour) {
 /// Formate une URL pour une image réseau, en ajoutant l'URL de base si nécessaire.
 String networkImage(String url) {
   return url.startsWith('/') ? "$assetURL$url" : url;
+}
+
+String formatDuration(double seconds) {
+  int totalSeconds = seconds.toInt();
+  int hours = totalSeconds ~/ 3600;
+  int minutes = (totalSeconds % 3600) ~/ 60;
+  int remainingSeconds = totalSeconds % 60;
+
+  String formattedTime = '';
+  if (hours > 0) {
+    formattedTime += '${hours}h ';
+  }
+  if (minutes > 0 || hours > 0) {
+    formattedTime += '${minutes}min ';
+  }
+  formattedTime += '${remainingSeconds}sec';
+
+  return formattedTime;
 }

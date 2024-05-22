@@ -7,6 +7,9 @@ const kDefaultPadding = 20.0;
 /// URL de base de l'API, récupérée à partir des variables d'environnement.
 String apiURL = dotenv.env['API_URL'] ?? '';
 
+String openRouteApiKey = dotenv.env['OPEN_ROUTE_API_KEY'] ?? '';
+const String applicationId = "com.sdssoum.medix";
+
 /// URL de base pour les ressources, récupérée à partir des variables d'environnement.
 String assetURL = dotenv.env['ASSET_URL'] ?? '';
 

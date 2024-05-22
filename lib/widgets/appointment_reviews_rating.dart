@@ -51,7 +51,10 @@ class AppointmentReview extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
             color: Get.theme.primaryColor.withOpacity(0.1)),
         child: Column(children: [
-          Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text("your-review".tr,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
             GestureDetector(
                 onTap: () => _actions(context),
                 child: const Icon(Icons.more_horiz_outlined, size: 25))

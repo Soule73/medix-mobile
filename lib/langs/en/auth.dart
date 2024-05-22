@@ -15,7 +15,7 @@ final Map<String, String> authEN = {
   "dont-have-account": "Don't have an account yet?",
   "login-create-account": "Sign up",
   "term-and-condition":
-      "I accept the terms of use, the privacy policy, and the terms of service",
+      "I have read and accept the privacy policy and terms of use.",
   "term-accepted-required-checkbox": "This field is required",
   "already-registered": "Already registered?",
   "have-account-signin": "Sign in",
@@ -71,5 +71,18 @@ final Map<String, String> authEN = {
   'appointment-reschedule-success':
       'Your appointment has been rescheduled and is awaiting confirmation from the doctor.',
   'appointment-delete-success':
-      'Your appointment has been cancelled successfully.'
+      'Your appointment has been cancelled successfully.',
+  "medix-term-and-condition": "Terms of Use and Privacy Policy of Medix",
+  "accept-term-and-condition": "1. Acceptance of Terms",
+  "if-create-account-in-medix":
+      "By creating an account on the Medix application, you agree to comply with our terms of use and privacy policy. Medix allows you to search for and book appointments with doctors of various specialties.",
+  "collection-of-personal-information": "2. Collection of Personal Information",
+  "yout-personal-information":
+      "The personal information you provide when creating your account, such as your first name, last name, and date of birth, is strictly confidential. It will be accessible only by you and the doctors with whom you have made appointments.",
+  "medical-records": "3. Management of Medical Records",
+  "the-doctors-you-consult-through-medix-can-manage-your-medical-file":
+      "The doctors you consult through Medix can manage your medical file and offer you medical follow-up appointments. They are the only ones, besides yourself, who have access to your medical information.",
+  "privacy-and-Security": "4. Privacy and Security",
+  "your-personal-and-medical-information":
+      "Your personal and medical information"
 };

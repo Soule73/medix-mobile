@@ -7,15 +7,15 @@ Future<void> bottomSheet(
     required Widget child,
     double height = 90}) {
   return showModalBottomSheet<void>(
-      backgroundColor: Get.theme.cardColor,
-      barrierColor: primary.withOpacity(0.05),
+      backgroundColor: Get.theme.canvasColor,
+      barrierColor: primary.withOpacity(0.1),
       context: context,
       builder: (BuildContext context) {
         return Container(
             width: double.infinity,
             height: height + 40,
             decoration: BoxDecoration(
-                color: Get.theme.canvasColor,
+                color: Get.theme.primaryColor.withOpacity(0.1),
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(15))),
             margin: const EdgeInsets.only(bottom: 48.0),

@@ -35,7 +35,9 @@ class ScaffoldDefault extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: floatingActionButton,
-        drawer: AppDrawer(),
+        drawer: Obx(() => Get.find<Auth>().authenticated.value
+            ? AppDrawer()
+            : const SizedBox.shrink()),
         appBar: buildAppBar(context,
             leading: leading ??
                 Builder(

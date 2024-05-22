@@ -39,8 +39,11 @@ class DoctorCard extends StatelessWidget {
   }
 
   void _handleCardTap(BuildContext context) {
+    int? doctorId = doctor.id;
+    if (doctorId != null) {
+      Get.find<DoctorController>().fetchDoctorDetails(doctorId);
+    }
     Get.to(() => DoctorDetailScreen(doctor: doctor));
-    Get.find<DoctorController>().fetchDoctorDetails(doctor.id.toString());
   }
 
   Widget _buildAvatar(Doctor doctor) {

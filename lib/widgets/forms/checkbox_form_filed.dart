@@ -3,19 +3,20 @@ import 'package:get/get.dart';
 import 'package:medix/constants/couleurs.dart' as color;
 
 class CheckBoxFormFieldWithErrorMessage extends FormField<bool> {
-  final String labelText;
+  final Widget label;
   final bool isChecked;
   final String error;
   final void Function(bool?) onChanged;
 
-  CheckBoxFormFieldWithErrorMessage({
-    super.key,
-    required this.labelText,
-    required this.isChecked,
-    required this.onChanged,
-    required super.validator,
-    required this.error,
-  }) : super(
+  CheckBoxFormFieldWithErrorMessage(
+      {super.key,
+      required this.label,
+      required this.isChecked,
+      required this.onChanged,
+      required super.validator,
+      required this.error,
+      void Function()? labelOnTap})
+      : super(
             initialValue: isChecked,
             builder: (FormFieldState<bool> state) {
               return Column(children: [
@@ -37,10 +38,10 @@ class CheckBoxFormFieldWithErrorMessage extends FormField<bool> {
                                     : Get.theme.canvasColor;
                               })),
                           Expanded(
-                              child: Text(labelText.tr,
-                                  style: const TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400)))
+                              child: GestureDetector(
+                            onTap: labelOnTap,
+                            child: label,
+                          )),
                         ])),
                 Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
