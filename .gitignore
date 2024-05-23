@@ -42,5 +42,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-_sha
+my-release-key.jks
 open_route.json

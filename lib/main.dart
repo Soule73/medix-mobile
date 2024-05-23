@@ -44,10 +44,6 @@ void main() async {
   Get.lazyPut(() => AppointmentDetailController(), fenix: true);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Get.isDarkMode ? darkBg : primary,
-    // statusBarIconBrightness:
-    //     Brightness.dark,
-    // statusBarBrightness:
-    //     Brightness.dark,
   ));
 
   runApp(const MainApp());
