@@ -39,15 +39,12 @@ class RatingController extends GetxController {
           if (controller.reviewRating.value != null) {
             path = "/review-rating/update/${controller.reviewRating.value?.id}";
           }
-          printInfo(info: '${controller.reviewRating.value?.toJson()}');
           isLoad.value = false;
         });
       } else {
         defaultErrorDialog();
       }
-    } catch (e) {
-      printInfo(info: 'error getx controller $e');
-    }
+    } catch (_) {}
     isLoad.value = false;
   }
 }
@@ -111,9 +108,7 @@ class RateDoctorScreen extends StatelessWidget {
         'comment': ratingController.review.text
       };
       await ratingController.rateDoctor(data);
-    } catch (e) {
-      printError(info: 'error update : $e');
-    }
+    } catch (_) {}
   }
 
   Padding _writeYourRevie() {

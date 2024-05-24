@@ -482,7 +482,8 @@ class RoutePolyLine extends StatelessWidget {
   Widget build(BuildContext context) {
     locationController.getCoordinates();
     return Obx(() {
-      if (locationController.isLoadToGetCurrentPosition.value) {
+      if (locationController.isLoadToGetCurrentPosition.value &&
+          locationController.currentPosition.value == null) {
         return const Center(child: CircularProgressIndicator());
       }
       if (locationController.currentPosition.value != null) {

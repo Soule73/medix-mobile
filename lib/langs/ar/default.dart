@@ -2,6 +2,7 @@ import 'package:medix/langs/ar/appointment.dart';
 import 'package:medix/langs/ar/auth.dart';
 import 'package:medix/langs/ar/day.dart';
 import 'package:medix/langs/ar/doctor.dart';
+import 'package:medix/langs/ar/location.dart';
 import 'package:medix/langs/ar/notification.dart';
 import 'package:medix/langs/ar/profile.dart';
 import 'package:medix/langs/ar/speciality.dart';
@@ -22,5 +23,6 @@ final Map<String, String> ar = {
   ...dayAR,
   ...notificationAR,
   ...profileAR,
-  ...authAR
+  ...authAR,
+  ...locationAR
 };

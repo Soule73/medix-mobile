@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:medix/constants/constants.dart';
@@ -60,9 +59,6 @@ Future<dynamic> performRequest(
   } catch (e) {
     // Appel de la fonction d'erreur en cas d'exception.
     onError?.call("error", 500);
-    if (kDebugMode) {
-      print('performRequest $e');
-    }
   }
   return null;
 }

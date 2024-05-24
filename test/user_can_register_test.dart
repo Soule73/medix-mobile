@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:medix/models/user.dart';
@@ -34,9 +33,6 @@ void main() {
 
       expect(token, isNotNull);
       expect(token, isNotEmpty);
-      if (kDebugMode) {
-        print('token : $token');
-      }
     });
 
     //test passée
@@ -55,17 +51,6 @@ void main() {
 
       // Utilisez isA<User>() pour vérifier le type
       expect(user, isA<User>());
-      if (kDebugMode) {
-        print(user?.toJson());
-      }
-
-      ///{id: 21, patien_id: 11, name: testLastName, phone: 31114824, email: null,
-      ///firstName: testFirsName, sex: M, role: patient, status: active,
-      ///default_lang: fr, avatar: null, fullname: testFirsName testLastName,
-      /// id_cnss: null, addresse: null, birthday: 2000-03-14T00:00:00.000000Z,
-      /// city_id: 1, city_name: Nouakchott, one_signal_id: null,
-      /// phone_verified_at: 2024-04-13T03:49:27.000000Z, email_verified_at: null,
-      ///  created_at: 2024-04-13T03:49:27.000000Z, updated_at: 2024-04-13T03:49:27.000000Z}
     });
   });
 }

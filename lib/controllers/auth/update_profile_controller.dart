@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medix/controllers/auth/auth.dart';
@@ -98,9 +97,6 @@ class UpdateProfileController extends GetxController {
       }
     } catch (e) {
       defaultErrorDialog();
-      if (kDebugMode) {
-        print(e);
-      }
     }
     isSetUserProfile.value = false;
   }

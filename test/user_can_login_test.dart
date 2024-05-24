@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:medix/services/perform_request.dart';
@@ -28,10 +27,6 @@ void main() {
           });
       expect(token, isNotNull);
       expect(token, isNotEmpty);
-      if (kDebugMode) {
-        print('token : $token');
-        // token : 53|tc8qk5AnVFy7UIqxkMs1E1XOvRIdHKl8RqEVIg5m5e40af00
-      }
     });
 
     test('Failed login returns null', () async {

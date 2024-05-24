@@ -36,9 +36,7 @@ class ApiLocation {
             .map((p) => LatLng(p[1].toDouble(), p[0].toDouble()))
             .toList();
       }
-    } catch (e) {
-      printError(info: e.toString());
-    }
+    } catch (_) {}
     return points;
   }
 

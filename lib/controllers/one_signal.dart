@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:medix/constants/constants.dart';
 import 'package:medix/controllers/auth/auth.dart';
@@ -58,31 +57,12 @@ class OneSignalNotification extends GetxController {
       }
     });
 
-    OneSignal.User.addObserver((state) {
-      var userState = state.jsonRepresentation();
-      if (kDebugMode) {
-        print('OneSignal user changed: $userState');
-      }
-    });
-
-    OneSignal.Notifications.addPermissionObserver((state) {
-      if (kDebugMode) {
-        print("Has permission $state");
-      }
-    });
 
     OneSignal.Notifications.addClickListener((event) async {
       await Get.to(() => NotificationScreen());
-      if (kDebugMode) {
-        print('NOTIFICATION CLICK LISTENER CALLED WITH EVENT: $event');
-      }
     });
 
     OneSignal.Notifications.addForegroundWillDisplayListener((event) {
-      if (kDebugMode) {
-        print(
-            'NOTIFICATION WILL DISPLAY LISTENER CALLED WITH: ${event.notification.jsonRepresentation()}');
-      }
 
       /// Display Notification, preventDefault to not display
       event.preventDefault();
@@ -94,29 +74,6 @@ class OneSignalNotification extends GetxController {
     OneSignal.InAppMessages.addClickListener((event) async {
       await Get.to(() => NotificationScreen());
 
-      if (kDebugMode) {
-        print(event.result);
-      }
-    });
-    OneSignal.InAppMessages.addWillDisplayListener((event) {
-      if (kDebugMode) {
-        print("ON WILL DISPLAY IN APP MESSAGE ${event.message.messageId}");
-      }
-    });
-    OneSignal.InAppMessages.addDidDisplayListener((event) {
-      if (kDebugMode) {
-        print("ON DID DISPLAY IN APP MESSAGE ${event.message.messageId}");
-      }
-    });
-    OneSignal.InAppMessages.addWillDismissListener((event) {
-      if (kDebugMode) {
-        print("ON WILL DISMISS IN APP MESSAGE ${event.message.messageId}");
-      }
-    });
-    OneSignal.InAppMessages.addDidDismissListener((event) {
-      if (kDebugMode) {
-        print("ON DID DISMISS IN APP MESSAGE ${event.message.messageId}");
-      }
     });
 
     OneSignal.InAppMessages.paused(true);

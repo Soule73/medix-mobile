@@ -87,8 +87,9 @@ class LocationController extends GetxController {
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) {
       currentPosition.value = position;
+      isLoadToGetCurrentPosition.value = false;
     }).catchError((e) {
-      printError(info: '$e');
+      isLoadToGetCurrentPosition.value = false;
     });
 
     isLoadToGetCurrentPosition.value = false;
