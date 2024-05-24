@@ -66,6 +66,9 @@ class LocationController extends GetxController {
   }
 
   Future<void> getCoordinates() async {
+    if (currentPosition.value == null) {
+      await getCurrentPosition();
+    }
     Appointment appointment =
         Get.find<AppointmentDetailController>().appointment.value;
 
@@ -87,8 +90,10 @@ class LocationController extends GetxController {
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) {
       currentPosition.value = position;
+      printInfo(info: "$position");
       isLoadToGetCurrentPosition.value = false;
     }).catchError((e) {
+      printInfo(info: "failed to get current position");
       isLoadToGetCurrentPosition.value = false;
     });
 

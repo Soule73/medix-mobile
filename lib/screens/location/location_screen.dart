@@ -185,7 +185,8 @@ class LocationFlutterMap extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
             child: Text(
-              locationName,
+              formatWorkPlaceName(locationName),
+              textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 9, color: Colors.black),
             ),
           ),
