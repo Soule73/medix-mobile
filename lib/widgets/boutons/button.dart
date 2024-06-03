@@ -49,18 +49,18 @@ class FadeBtn extends StatelessWidget {
   }
 }
 
-MaterialStateProperty<Size?>? _btnMinimumSize(double? width, double? height) =>
-    MaterialStateProperty.all<Size>(
+WidgetStateProperty<Size?>? _btnMinimumSize(double? width, double? height) =>
+    WidgetStateProperty.all<Size>(
       Size(width ?? Get.width * 0.6, height ?? 50),
     );
-MaterialStateProperty<OutlinedBorder?>? _btnShape(double radius) =>
-    MaterialStateProperty.all<RoundedRectangleBorder>(
+WidgetStateProperty<OutlinedBorder?>? _btnShape(double radius) =>
+    WidgetStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radius),
       ),
     );
-MaterialStateProperty<Color?>? _btnBackgroundColor(Color color) =>
-    MaterialStateProperty.all<Color>(
+WidgetStateProperty<Color?>? _btnBackgroundColor(Color color) =>
+    WidgetStateProperty.all<Color>(
       color,
     );
 
@@ -108,7 +108,7 @@ class OutlinedBtn extends StatelessWidget {
     return ButtonStyle(
         backgroundColor: _btnBackgroundColor(Get.theme.cardColor),
         shape: _btnShape(radius),
-        side: MaterialStatePropertyAll(
+        side: WidgetStatePropertyAll(
             BorderSide(width: 1, color: color ?? primary)),
         minimumSize: _btnMinimumSize(width, height));
   }

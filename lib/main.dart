@@ -56,14 +56,14 @@ ThemeData _darkTheme = ThemeData(
       seedColor: primary,
       brightness: Brightness.dark,
       primary: white,
-      background: darkBg),
+      surface: darkBg),
 );
 
 ThemeData _lightTheme = ThemeData(
   useMaterial3: true,
   primaryColor: darkBlue,
   colorScheme: ColorScheme.fromSeed(
-      background: lightBg,
+      surface: lightBg,
       seedColor: primary,
       brightness: Brightness.light,
       primary: darkBlue),

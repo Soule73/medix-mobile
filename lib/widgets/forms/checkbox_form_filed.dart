@@ -31,9 +31,8 @@ class CheckBoxFormFieldWithErrorMessage extends FormField<bool> {
                               onChanged: onChanged,
                               isError: true,
                               checkColor: Get.theme.primaryColor,
-                              fillColor:
-                                  MaterialStateColor.resolveWith((states) {
-                                return states.contains(MaterialState.selected)
+                              fillColor: WidgetStateColor.resolveWith((states) {
+                                return states.contains(WidgetState.selected)
                                     ? color.success
                                     : Get.theme.canvasColor;
                               })),

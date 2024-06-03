@@ -33,16 +33,32 @@ class Links extends StatelessWidget {
 
   ButtonStyle _buttonStyle(Link link) {
     return ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(
-          link.active! ? primary : primary.withOpacity(0.1),
-        ),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
-                side: link.active!
-                    ? BorderSide.none
-                    : BorderSide(color: Colors.grey.withOpacity(0.2)))),
-        minimumSize: MaterialStateProperty.all<Size>(const Size(50, 0)));
+      backgroundColor: WidgetStateProperty.resolveWith<Color>(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.pressed)) {
+            return primary;
+          } else {
+            return primary.withOpacity(0.1);
+          }
+        },
+      ),
+      shape: WidgetStateProperty.resolveWith<RoundedRectangleBorder>(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.pressed)) {
+            return RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+              side: BorderSide.none,
+            );
+          } else {
+            return RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+              side: BorderSide(color: Colors.grey.withOpacity(0.2)),
+            );
+          }
+        },
+      ),
+      minimumSize: WidgetStateProperty.all<Size>(const Size(50, 0)),
+    );
   }
 
   _linkPressed(String? url) {

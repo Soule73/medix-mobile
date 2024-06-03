@@ -510,7 +510,6 @@ class RoutePolyLine extends StatelessWidget {
         MarkerLayer(markers: _buildMarkers(startPoint, endPoint)),
         Obx(() => locationController.points.isNotEmpty
             ? PolylineLayer(
-                polylineCulling: false,
                 polylines: [
                   Polyline(
                       points: locationController.points,
