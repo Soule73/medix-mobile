@@ -11,6 +11,7 @@ import 'package:medix/services/api_auth.dart';
 import 'package:medix/utils/alert_dialog.dart';
 import 'package:medix/utils/utils.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// La classe "Auth" de Dart gère l'authentification des utilisateurs, l'enregistrement, la connexion,
 /// la mise à jour des informations utilisateur, la modification des mots de passe, la déconnexion et la
@@ -20,7 +21,15 @@ class Auth extends GetxController {
   final ApiAuth apiAuth = ApiAuth();
   RxBool authenticated = false.obs;
   RxBool isLoading = false.obs;
+  RxBool isFirstOpenApp = true.obs;
   Rxn<User?> user = Rxn<User?>();
+  final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+
+  Future<void> setIsFisrtOpenApp() async {
+    SharedPreferences pref = await prefs;
+    await pref.setBool('isFirstOpenApp', false);
+    isFirstOpenApp.value = false;
+  }
 
   /// La fonction "onInit" recherche un jeton, authentifie l'utilisateur, récupère les données
   /// utilisateur, met à jour l'ID OneSignal de l'utilisateur si nécessaire et se déconnecte si aucun
@@ -28,7 +37,10 @@ class Auth extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    SharedPreferences pref = await prefs;
+    await pref.setBool('isFirstOpenApp', true);
 
+    isFirstOpenApp.value = pref.getBool("isFirstOpenApp") ?? true;
     final String? token = await getToken();
     if (token != null) {
       authenticated.value = true;
@@ -46,7 +58,7 @@ class Auth extends GetxController {
             credential: {'one_signal_id': OneSignal.User.pushSubscription.id});
       }
     } else {
-      await logout();
+      authenticated.value = false;
     }
   }
 

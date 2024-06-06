@@ -30,8 +30,6 @@ class LocationController extends GetxController {
   @override
   onInit() {
     super.onInit;
-    handleLocationPermission();
-    getCurrentPosition();
   }
 
   // Définir les méthodes d'état comme des fonctions normales
@@ -90,10 +88,8 @@ class LocationController extends GetxController {
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) {
       currentPosition.value = position;
-      printInfo(info: "$position");
       isLoadToGetCurrentPosition.value = false;
     }).catchError((e) {
-      printInfo(info: "failed to get current position");
       isLoadToGetCurrentPosition.value = false;
     });
 

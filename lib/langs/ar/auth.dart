@@ -79,5 +79,17 @@ final Map<String, String> authAR = {
   "the-doctors-you-consult-through-medix-can-manage-your-medical-file":
       "يمكن للأطباء الذين تتشاور معهم من خلال ميديكس إدارة ملفك الطبي وعرض مواعيد المتابعة الطبية. هم فقط، بجانبك، من لديهم الوصول إلى معلوماتك الطبية.",
   "privacy-and-Security": "4. الخصوصية والأمان",
-  "your-personal-and-medical-information": "معلوماتك الشخصية والطبية"
+  "your-personal-and-medical-information": "معلوماتك الشخصية والطبية",
+  "welcome-to-medix": "مرحباً بك في ميديكس",
+  "book-appointment-one-click": "ابحث عن طبيب واحجز موعدك بنقرة واحدة.",
+  "for-find-a-doctor-location": "للعثور على أقرب الأطباء إليك.",
+  "for-find-a-doctor-location-location-permission-required":
+      "يتطلب الوصول إلى بيانات موقعك لتمكين تحديد موقع الأطباء جغرافياً في هذا التطبيق.",
+  "location-not-used-background": "لن يتم جمع موقعك في الخلفية",
+  "for-receive-realtime-notifications":
+      "لتلقي إشعارات فورية بشأن مواعيدك الطبية.",
+  "please-guaranted-notifications-permission": "يرجى السماح بالإشعارات",
+  "guaranted-notifications": "السماح بالإشعارات",
+  "log-in-or-sign-up": "تسجيل الدخول أو الاشتراك.",
+  "no-thanks": "لا شكراً"
 };

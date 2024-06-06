@@ -84,5 +84,19 @@ final Map<String, String> authEN = {
       "The doctors you consult through Medix can manage your medical file and offer you medical follow-up appointments. They are the only ones, besides yourself, who have access to your medical information.",
   "privacy-and-Security": "4. Privacy and Security",
   "your-personal-and-medical-information":
-      "Your personal and medical information"
+      "Your personal and medical information",
+  "welcome-to-medix": "Welcome to Medix",
+  "book-appointment-one-click":
+      "Find a doctor and book your appointment with just one click.",
+  "for-find-a-doctor-location": "To find the closest doctors to you.",
+  "for-find-a-doctor-location-location-permission-required":
+      "Access to your location data is required to enable doctor geolocation in this app.",
+  "location-not-used-background":
+      "It will not collect your location in the background",
+  "for-receive-realtime-notifications":
+      "To receive real-time notifications about your medical appointments.",
+  "please-guaranted-notifications-permission": "Please allow notifications",
+  "guaranted-notifications": "Allow notifications",
+  "log-in-or-sign-up": "Log in or sign up.",
+  "no-thanks": "No thanks"
 };

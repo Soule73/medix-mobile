@@ -20,6 +20,7 @@ import 'package:medix/controllers/auth/auth.dart';
 import 'package:medix/controllers/themes/theme_controller.dart';
 import 'package:medix/firebase_options.dart';
 import 'package:medix/screens/auth/login/login_screen.dart';
+import 'package:medix/screens/introduction_screen.dart';
 import 'package:medix/screens/welcome_screen.dart';
 
 void main() async {
@@ -96,9 +97,15 @@ class MainApp extends StatelessWidget {
                 Locale('ar'),
               ],
               themeMode: Get.find<ThemeController>().themeMode.value,
-              home: Obx(() => Get.find<Auth>().authenticated.value
-                  ? WelcomeScreen()
-                  : LoginScreen()),
+              home: Obx(() {
+                Auth auth = Get.find<Auth>();
+                if (auth.isFirstOpenApp.value) {
+                  return OnBoardingPage();
+                } else if (auth.authenticated.value) {
+                  return WelcomeScreen();
+                }
+                return LoginScreen();
+              }),
             );
           } else {
             return Center(child: CircularProgressIndicator(color: primary));

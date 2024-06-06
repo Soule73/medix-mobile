@@ -19,9 +19,6 @@ class OneSignalNotification extends GetxController {
   onInit() {
     super.onInit();
     initPlatformState();
-    if (!OneSignal.Notifications.permission) {
-      handlePromptForPushPermission();
-    }
   }
 
   /// Gère la demande de permission de notification.
@@ -57,13 +54,11 @@ class OneSignalNotification extends GetxController {
       }
     });
 
-
     OneSignal.Notifications.addClickListener((event) async {
       await Get.to(() => NotificationScreen());
     });
 
     OneSignal.Notifications.addForegroundWillDisplayListener((event) {
-
       /// Display Notification, preventDefault to not display
       event.preventDefault();
 
@@ -73,7 +68,6 @@ class OneSignalNotification extends GetxController {
 
     OneSignal.InAppMessages.addClickListener((event) async {
       await Get.to(() => NotificationScreen());
-
     });
 
     OneSignal.InAppMessages.paused(true);

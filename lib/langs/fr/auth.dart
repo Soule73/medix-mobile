@@ -84,5 +84,21 @@ final Map<String, String> authFR = {
       "Les médecins que vous consultez via Medix peuvent gérer votre dossier médical et vous proposer des rendez-vous de suivi médical. Ils sont les seuls, en dehors de vous-même, à avoir accès à vos informations médicales.",
   "privacy-and-Security": "4. Confidentialité et Sécurité",
   "your-personal-and-medical-information":
-      "Vos informations personnelles et médicales"
+      "Vos informations personnelles et médicales",
+  "welcome-to-medix": "Bienvenue dans Medix",
+  "book-appointment-one-click":
+      "Trouvez un médecin et réservez votre rendez-vous en un seul clic.",
+  "for-find-a-doctor-location":
+      "Pour trouver les médecins les plus proches de chez vous.",
+  "for-find-a-doctor-location-location-permission-required":
+      "L'accès à vos données de localisation est nécessaire pour permettre la géolocalisation des médecins dans cette application.",
+  "location-not-used-background":
+      "Elle ne collectera pas votre localisation en arrière-plan",
+  "for-receive-realtime-notifications":
+      "Pour recevoir des notifications en temps réel concernant vos rendez-vous médicaux.",
+  "please-guaranted-notifications-permission":
+      "Veuillez autorise les notifications",
+  "guaranted-notifications": "Autorise les notifications",
+  "log-in-or-sign-up": "Se connecter ou s'inscrire.",
+  "no-thanks": "Non merci",
 };
