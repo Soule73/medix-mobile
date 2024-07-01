@@ -73,7 +73,7 @@ class PinPutCode extends StatelessWidget {
       ),
       Pinput(
         length: 6,
-        androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsRetrieverApi,
+        // androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsRetrieverApi,
         onCompleted: onCompleted,
         controller: controller,
       ),

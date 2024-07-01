@@ -34,13 +34,13 @@ void main() async {
   } catch (_) {}
   Get.put(LangController(), permanent: true);
   Get.put(Auth(), permanent: true);
+  Get.put(ThemeController(), permanent: true);
   Get.put(DoctorController(), permanent: true);
   Get.put(SpecialityController(), permanent: true);
   Get.put(NotificationController(), permanent: true);
   Get.put(FavorisController(), permanent: true);
   Get.put(AppointmentController(), permanent: true);
   Get.put(OneSignalNotification(), permanent: true);
-  Get.put(ThemeController(), permanent: true);
   Get.put(LocationController(), permanent: true);
   Get.lazyPut(() => AppointmentDetailController(), fenix: true);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

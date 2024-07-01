@@ -38,7 +38,6 @@ class Auth extends GetxController {
   void onInit() async {
     super.onInit();
     SharedPreferences pref = await prefs;
-    await pref.setBool('isFirstOpenApp', true);
 
     isFirstOpenApp.value = pref.getBool("isFirstOpenApp") ?? true;
     final String? token = await getToken();

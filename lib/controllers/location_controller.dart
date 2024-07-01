@@ -28,8 +28,15 @@ class LocationController extends GetxController {
   // Conversion of listOfPoints into LatLng(Latitude, Longitude) list of points
   RxList<LatLng> points = RxList<LatLng>([]);
   @override
-  onInit() {
+  onInit() async {
     super.onInit;
+    var permission = await Geolocator.checkPermission();
+
+    if (!(permission == LocationPermission.denied)) {
+      handleLocationPermission();
+    } else {
+      getCoordinates();
+    }
   }
 
   // Définir les méthodes d'état comme des fonctions normales

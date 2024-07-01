@@ -1,7 +1,7 @@
 name: medix
 description: "Une application pour planifier un rendez-vous médical avec un médecin."
 publish_to: 'none'
-version: 1.0.0+2
+version: 1.0.0+6
 
 environment:
   sdk: '>=3.3.1 <4.0.0'
@@ -9,9 +9,9 @@ environment:
 dependencies:
   badges: ^3.1.2
   date_field: ^5.0.1
-  firebase_auth: ^4.17.9
-  firebase_core: ^2.27.1
-  firebase_storage: ^11.6.10
+  firebase_auth: ^5.0.0
+  firebase_core: ^3.0.0
+  firebase_storage: ^12.0.0
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -29,7 +29,7 @@ dependencies:
   mobkit_calendar: ^0.1.3
   onesignal_flutter: ^5.1.3
   phone_form_field: ^9.1.0
-  pinput: ^4.0.0
+  pinput: ^5.0.0
   select_form_field: ^2.2.0
   shared_preferences: ^2.2.2
   timer_count_down: ^2.2.2
@@ -37,7 +37,7 @@ dependencies:
   flutter_native_splash: ^2.4.0
   path: ^1.9.0
   collapsible: ^1.0.0
-  flutter_map: ^6.1.0
+  flutter_map: ^7.0.0
   latlong2: ^0.9.1
   flutter_device_id: ^1.0.1
   geolocator: ^12.0.0
@@ -47,7 +47,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
 dependency_overrides:
   intl: ^0.18.1
 flutter:
