@@ -12,8 +12,8 @@ InputDecoration formInputFieldDecoration(
       filled: true,
       suffixIcon: suffixIcon,
       prefixIcon: prefixIcon,
-      fillColor:
-          Get.theme.primaryColor.withOpacity(0.1), // Couleur de fond estompée
+      fillColor: Get.theme.primaryColor
+          .withAlpha((0.1 * 255).toInt()), // Couleur de fond estompée
       enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.transparent),
           borderRadius: BorderRadius.circular(8.0)),

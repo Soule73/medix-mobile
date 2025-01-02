@@ -64,7 +64,8 @@ class PinPutCode extends StatelessWidget {
             Text(
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Get.theme.primaryColor.withOpacity(0.7),
+                    color:
+                        Get.theme.primaryColor.withAlpha((0.7 * 255).toInt()),
                     fontWeight: FontWeight.w400,
                     fontSize: 12),
                 "otp-send-to-your-phone-number".tr),

@@ -74,7 +74,7 @@ class NotificationScreen extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
-                color: Get.theme.primaryColor.withOpacity(0.3)),
+                color: Get.theme.primaryColor.withAlpha((0.3 * 255).toInt())),
             child: notificationController.isLoad.value
                 ? buildLoadingIndicatorSmall(color: primary)
                 : Icon(Icons.refresh, color: primary))));
@@ -140,12 +140,12 @@ class NotificationItem extends StatelessWidget {
             bottom: BorderSide(
                 width: 1,
                 color: notification.readAt != null
-                    ? Get.theme.primaryColor.withOpacity(0.1)
-                    : Get.theme.canvasColor.withOpacity(0.5)));
+                    ? Get.theme.primaryColor.withAlpha((0.1 * 255).toInt())
+                    : Get.theme.canvasColor.withAlpha((0.7 * 255).toInt())));
 
     final backgroundColor = notification.readAt != null
         ? null
-        : Get.theme.primaryColor.withOpacity(0.2);
+        : Get.theme.primaryColor.withAlpha((0.2 * 255).toInt());
 
     return InkWell(
         onTap: () {

@@ -88,7 +88,7 @@ class WelcomeScreen extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
-                color: Get.theme.primaryColor.withOpacity(0.3)),
+                color: Get.theme.primaryColor.withAlpha((0.3 * 255).toInt())),
             child: locationController.isLoadLocation.value
                 ? buildLoadingIndicatorSmall(color: primary)
                 : Icon(
@@ -151,8 +151,8 @@ class SearchBarithFilter extends StatelessWidget {
   InputDecoration _searchFieldDecoration() {
     return InputDecoration(
         contentPadding: const EdgeInsets.all(0),
-        enabledBorder:
-            _outlineInputBorder(Get.theme.primaryColor.withOpacity(0.1)),
+        enabledBorder: _outlineInputBorder(
+            Get.theme.primaryColor.withAlpha((0.1 * 255).toInt())),
         focusedBorder: _outlineInputBorder(primary),
         hintText: "search-doctor".tr,
         prefixIcon: Obx(() =>
@@ -338,7 +338,7 @@ class SpecialityWithIconItem extends StatelessWidget {
                   margin: const EdgeInsets.only(bottom: 3.0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      color: primary.withOpacity(0.3)),
+                      color: primary.withAlpha((0.3 * 255).toInt())),
                   child: Icon(
                       size: 30,
                       color: primary,

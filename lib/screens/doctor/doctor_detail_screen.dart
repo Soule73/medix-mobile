@@ -115,7 +115,7 @@ class DoctorDetailScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5.0),
-              color: Get.theme.primaryColor.withOpacity(0.1)),
+              color: Get.theme.primaryColor.withAlpha((0.1 * 255).toInt())),
           child: Text("${"consultation-price".tr} : ${doctor.visitPrice} MRU",
               style: const TextStyle(fontWeight: FontWeight.w600)))
     ]);
@@ -127,7 +127,7 @@ class DoctorDetailScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
-            color: Get.theme.primaryColor.withOpacity(0.1)),
+            color: Get.theme.primaryColor.withAlpha((0.1 * 255).toInt())),
         child: IntrinsicHeight(
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -137,7 +137,7 @@ class DoctorDetailScreen extends StatelessWidget {
                   subTitle: "doctor-patients".tr,
                   icon: FontAwesomeIcons.userGroup),
               VerticalDivider(
-                color: Get.theme.dividerColor.withOpacity(0.2),
+                color: Get.theme.dividerColor.withAlpha((0.2 * 255).toInt()),
                 width: 2,
               ),
               IconWidgetDetail(
@@ -176,7 +176,7 @@ class DoctorDetailScreen extends StatelessWidget {
         ? Container(
             padding: const EdgeInsets.only(bottom: 10.0, left: 10, right: 10),
             decoration: BoxDecoration(
-                color: Get.theme.primaryColor.withOpacity(0.1),
+                color: Get.theme.primaryColor.withAlpha((0.1 * 255).toInt()),
                 borderRadius: BorderRadius.circular(10.0)),
             child: Column(children: [
               GestureDetector(
@@ -275,7 +275,8 @@ class QualificationItem extends StatelessWidget {
                     ? BorderSide.none
                     : BorderSide(
                         width: 2,
-                        color: Get.theme.canvasColor.withOpacity(0.7)))),
+                        color: Get.theme.canvasColor
+                            .withAlpha((0.7 * 255).toInt())))),
         child: Column(
           children: [
             SizedBox(
@@ -317,7 +318,8 @@ class ReviewRatingList extends StatelessWidget {
         decoration: BoxDecoration(
             border: Border(
                 bottom: BorderSide(
-                    color: Get.theme.primaryColor.withOpacity(0.3)))),
+                    color: Get.theme.primaryColor
+                        .withAlpha((0.3 * 255).toInt())))),
         child: MeduimTitle(title: "reviews".tr));
   }
 
@@ -409,7 +411,7 @@ class IconWidgetDetail extends StatelessWidget {
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(85),
-                color: primary.withOpacity(0.2)),
+                color: primary.withAlpha((0.2 * 255).toInt())),
             child: FaIcon(icon, size: 25, color: primary)),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),

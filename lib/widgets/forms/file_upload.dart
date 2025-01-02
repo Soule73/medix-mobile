@@ -22,7 +22,7 @@ class UploadProfileImage extends StatelessWidget {
 
   BoxDecoration _containerDecoration() {
     return BoxDecoration(
-      color: Get.theme.primaryColor.withOpacity(0.9),
+      color: Get.theme.primaryColor.withAlpha((0.9 * 255).toInt()),
       borderRadius: BorderRadius.circular(15),
       border: Border.all(color: Get.theme.canvasColor, width: 2),
     );

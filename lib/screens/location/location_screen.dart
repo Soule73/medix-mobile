@@ -34,8 +34,8 @@ class LocationScreen extends StatelessWidget {
         bottomNavigationBar: Container(
           margin: const EdgeInsets.only(bottom: 50),
           padding: const EdgeInsets.symmetric(horizontal: 35.0),
-          decoration:
-              BoxDecoration(color: Get.theme.primaryColor.withOpacity(0.07)),
+          decoration: BoxDecoration(
+              color: Get.theme.primaryColor.withAlpha((0.07 * 255).toInt())),
           height: 70,
           child: Column(
             children: [
@@ -139,8 +139,8 @@ class LocationFlutterMap extends StatelessWidget {
         point: startPoint,
         radius: 5000,
         useRadiusInMeter: true,
-        color: Colors.red.withOpacity(0.1),
-        borderColor: Colors.red.withOpacity(0.5),
+        color: Colors.red.withAlpha((0.1 * 255).toInt()),
+        borderColor: Colors.red.withAlpha((0.7 * 255).toInt()),
         borderStrokeWidth: 2,
       ),
     ];

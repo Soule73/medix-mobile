@@ -158,7 +158,7 @@ class ActionEdit extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(vertical: 2.0),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: bgColor?.withOpacity(0.1)),
+                    color: bgColor?.withAlpha((0.1 * 255).toInt())),
                 child: InkWell(
                     onTap: onTap,
                     child: Center(
@@ -168,8 +168,8 @@ class ActionEdit extends StatelessWidget {
                           height: 30,
                           child: CircleAvatar(
                               backgroundColor: color != null
-                                  ? color?.withOpacity(0.1)
-                                  : primary.withOpacity(0.1),
+                                  ? color?.withAlpha((0.1 * 255).toInt())
+                                  : primary.withAlpha((0.1 * 255).toInt()),
                               child: FaIcon(icon,
                                   size: 15, color: color ?? primary))),
                       Padding(
@@ -201,7 +201,8 @@ class UserFullNameAndPhone extends StatelessWidget {
           decoration: BoxDecoration(
               border: Border(
                   bottom: BorderSide(
-                      color: Get.theme.dividerColor.withOpacity(0.2),
+                      color:
+                          Get.theme.dividerColor.withAlpha((0.2 * 255).toInt()),
                       width: 3))),
           child: Column(children: [
             Text('${user?.firstName} ${user?.name}',

@@ -49,7 +49,7 @@ class AppointmentReview extends StatelessWidget {
         margin: const EdgeInsets.only(top: 5.0, bottom: 50),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
-            color: Get.theme.primaryColor.withOpacity(0.1)),
+            color: Get.theme.primaryColor.withAlpha((0.1 * 255).toInt())),
         child: Column(children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text("your-review".tr,

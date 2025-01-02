@@ -52,8 +52,8 @@ class TopDoctorBySpecility extends StatelessWidget {
   InputDecoration _searchFieldDecoration() {
     return InputDecoration(
         contentPadding: const EdgeInsets.all(0),
-        enabledBorder:
-            _outlineInputBorder(Get.theme.primaryColor.withOpacity(0.1)),
+        enabledBorder: _outlineInputBorder(
+            Get.theme.primaryColor.withAlpha((0.1 * 255).toInt())),
         focusedBorder: _outlineInputBorder(primary),
         hintText: "search-doctor".tr,
         prefixIcon: Obx(() =>
@@ -135,7 +135,7 @@ class TopDoctorBySpecility extends StatelessWidget {
                 color: doctorController.currentSpecialityId.value ==
                         speciality.id.toString()
                     ? primary
-                    : Get.theme.dividerColor.withOpacity(0.3))));
+                    : Get.theme.dividerColor.withAlpha((0.3 * 255).toInt()))));
   }
 
   TextStyle _specialityItemTextStyle(Speciality speciality) {

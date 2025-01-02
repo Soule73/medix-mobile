@@ -38,7 +38,7 @@ class Links extends StatelessWidget {
           if (states.contains(WidgetState.pressed)) {
             return primary;
           } else {
-            return primary.withOpacity(0.1);
+            return primary.withAlpha((0.1 * 255).toInt());
           }
         },
       ),
@@ -52,7 +52,8 @@ class Links extends StatelessWidget {
           } else {
             return RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
-              side: BorderSide(color: Colors.grey.withOpacity(0.2)),
+              side:
+                  BorderSide(color: Colors.grey.withAlpha((0.2 * 255).toInt())),
             );
           }
         },

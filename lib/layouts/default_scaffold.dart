@@ -76,7 +76,7 @@ class AppBarNotification extends StatelessWidget {
         padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
-            color: Get.theme.primaryColor.withOpacity(0.2)),
+            color: Get.theme.primaryColor.withAlpha((0.2 * 255).toInt())),
         child: const NotificationCount(),
       ),
     );

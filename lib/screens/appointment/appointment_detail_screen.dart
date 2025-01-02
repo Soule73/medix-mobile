@@ -161,7 +161,7 @@ class AppointmentDetailScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
             color:
                 (statusColor['${appointment.status}'] ?? Get.theme.primaryColor)
-                    .withOpacity(0.2)),
+                    .withAlpha((0.2 * 255).toInt())),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
         margin: const EdgeInsets.symmetric(vertical: 15),
         width: double.infinity,
@@ -254,8 +254,8 @@ class AppointmentDetailScreen extends StatelessWidget {
             width: double.infinity,
             padding:
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-            decoration:
-                BoxDecoration(color: Get.theme.primaryColor.withOpacity(0.2)),
+            decoration: BoxDecoration(
+                color: Get.theme.primaryColor.withAlpha((0.2 * 255).toInt())),
             child: Text(
                 textAlign: TextAlign.center,
                 '${addByDoctor ? "follow-up-appointment-with-your-doctor".tr : "the-doctor-postponed-the-appointment".tr} : \n${appointment.rescheduleDate}'));
@@ -289,7 +289,7 @@ class AppointmentDetailScreen extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                   decoration: BoxDecoration(
-                      color: success.withOpacity(0.2),
+                      color: success.withAlpha((0.2 * 255).toInt()),
                       borderRadius: BorderRadius.circular(10)),
                   child: SizedBox(
                       width: 50,
@@ -323,7 +323,7 @@ class AppointmentDetailScreen extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                   decoration: BoxDecoration(
-                      color: error.withOpacity(0.2),
+                      color: error.withAlpha((0.2 * 255).toInt()),
                       borderRadius: BorderRadius.circular(10)),
                   child: SizedBox(
                       width: 50,
@@ -455,7 +455,7 @@ class TitleWithValue extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-            color: color?.withOpacity(0.3),
+            color: color?.withAlpha((0.3 * 255).toInt()),
             borderRadius: color != null ? BorderRadius.circular(5) : null),
         margin: EdgeInsets.symmetric(vertical: color != null ? 5 : 0),
         padding: EdgeInsets.symmetric(

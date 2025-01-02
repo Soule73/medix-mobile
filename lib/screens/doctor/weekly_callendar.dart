@@ -23,13 +23,15 @@ class WeeklyCallendar extends StatelessWidget {
         cellConfig: CalendarCellConfigModel(
             disabledStyle: CalendarCellStyle(
                 textStyle: TextStyle(
-                    fontSize: 14, color: Colors.grey.withOpacity(0.5)),
+                    fontSize: 14,
+                    color: Colors.grey.withAlpha((0.7 * 255).toInt())),
                 color: Colors.transparent),
             enabledStyle: CalendarCellStyle(
                 textStyle:
                     TextStyle(fontSize: 14, color: Get.theme.primaryColor),
-                border:
-                    Border.all(color: Colors.grey.withOpacity(0.2), width: 1)),
+                border: Border.all(
+                    color: Colors.grey.withAlpha((0.2 * 255).toInt()),
+                    width: 1)),
             selectedStyle: CalendarCellStyle(
                 color: primary,
                 textStyle: const TextStyle(fontSize: 14, color: Colors.white)),

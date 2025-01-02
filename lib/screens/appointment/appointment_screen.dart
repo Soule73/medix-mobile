@@ -155,7 +155,7 @@ class AppointmentItem extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
-                color: Get.theme.primaryColor.withOpacity(0.1)),
+                color: Get.theme.primaryColor.withAlpha((0.1 * 255).toInt())),
             child: DoctorInfo(
                 isHero: false,
                 tags: appointment.doctorId!,

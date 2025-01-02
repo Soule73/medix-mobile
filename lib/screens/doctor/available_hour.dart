@@ -55,8 +55,9 @@ class AvailableHours extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 4.0),
             decoration: BoxDecoration(
                 color: isSelected ? primary : null,
-                border:
-                    Border.all(color: Get.theme.primaryColor.withOpacity(0.2)),
+                border: Border.all(
+                    color:
+                        Get.theme.primaryColor.withAlpha((0.2 * 255).toInt())),
                 borderRadius: BorderRadius.circular(25)),
             child: Text(hour,
                 style: TextStyle(color: isSelected ? white : null))));

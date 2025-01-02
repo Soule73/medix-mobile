@@ -30,7 +30,8 @@ class FilterButton extends StatelessWidget {
 
   BoxDecoration _decoration() {
     return BoxDecoration(
-        border: Border.all(color: Get.theme.primaryColor.withOpacity(0.1)),
+        border: Border.all(
+            color: Get.theme.primaryColor.withAlpha((0.1 * 255).toInt())),
         borderRadius: BorderRadius.circular(10));
   }
 }

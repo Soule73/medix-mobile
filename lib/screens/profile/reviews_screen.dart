@@ -35,7 +35,7 @@ class ReviewsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
-                color: Get.theme.primaryColor.withOpacity(0.3)),
+                color: Get.theme.primaryColor.withAlpha((0.3 * 255).toInt())),
             child: controller.isLoad.value
                 ? buildLoadingIndicatorSmall(color: primary)
                 : Icon(Icons.refresh, color: primary))));

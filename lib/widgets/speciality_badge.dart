@@ -35,6 +35,7 @@ class SpecialityBadge extends StatelessWidget {
   BoxDecoration _decoration() {
     return BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: Get.theme.dividerColor.withOpacity(0.5)));
+        border: Border.all(
+            color: Get.theme.dividerColor.withAlpha((0.7 * 255).toInt())));
   }
 }

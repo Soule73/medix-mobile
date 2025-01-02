@@ -26,7 +26,7 @@ Container buildConsultationPrice({required String visitPrice}) {
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
-          color: Get.theme.primaryColor.withOpacity(0.1)),
+          color: Get.theme.primaryColor.withAlpha((0.1 * 255).toInt())),
       child: Text("${'consultation-price'.tr} : $visitPrice MRU",
           style: const TextStyle(fontWeight: FontWeight.w600)));
 }
