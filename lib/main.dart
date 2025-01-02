@@ -60,6 +60,7 @@ ThemeData _darkTheme = ThemeData(
       surface: darkBg),
 );
 
+// light theme
 ThemeData _lightTheme = ThemeData(
   useMaterial3: true,
   primaryColor: darkBlue,

@@ -37,7 +37,7 @@ class FadeBtn extends StatelessWidget {
                   child: CircularProgressIndicator(
                       color: Get.theme.primaryColor, strokeWidth: 3))
               : const SizedBox.shrink(),
-          Text(title, style: TextStyle(fontSize: fontSize))
+          Text(title, style: TextStyle(fontSize: fontSize, color: Colors.white))
         ]));
   }
 

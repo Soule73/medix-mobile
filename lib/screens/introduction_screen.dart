@@ -30,7 +30,7 @@ class OnBoardingPage extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 60, top: 50),
         child: IntroductionScreen(
             key: introCtrl.introKey,
-            globalBackgroundColor: Colors.transparent,
+            globalBackgroundColor: Get.isDarkMode ? darkBg : Colors.white,
             pages: [
               PageViewModel(
                 title: "welcome-to-medix".tr,
